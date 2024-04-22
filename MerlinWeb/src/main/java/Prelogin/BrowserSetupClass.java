@@ -12,7 +12,6 @@ import java.util.Scanner;
 import com.aventstack.extentreports.ExtentReports;
 import io.github.bonigarcia.wdm.WebDriverManager;
 
-
 public class BrowserSetupClass {
   
   public static WebDriver webDriver = null;  
@@ -21,7 +20,6 @@ public class BrowserSetupClass {
   
   @BeforeSuite
   public void beforeSuite() throws IOException {
-	  
 	  
 	  // Choose Browser
 	  Scanner input = new Scanner (System.in);
