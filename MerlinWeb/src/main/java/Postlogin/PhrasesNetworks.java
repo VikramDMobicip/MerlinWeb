@@ -16,17 +16,17 @@ import com.aventstack.extentreports.reporter.ExtentSparkReporter;
  
 // no phrase and network should be entered preset in ch1 child 
 
-public class PhrasesNetworks extends baseClass{
+public class PhrasesNetworks extends BrowserSetup{
 
 	//Report setup
-//	WebDriver d;
+
 	ExtentReports extentreport;
 	ExtentSparkReporter spark ;
 	@BeforeClass
 	public void beforeTest() 
 	{
 		extentreport = new ExtentReports();
-		spark = new ExtentSparkReporter("D:\\TestReports\\TestPhrases\\reportContentPhraseNetwork.html");
+		spark = new ExtentSparkReporter("TestReports\\PostloginTest\\TestPhrases\\reportContentPhraseNetwork.html");
 		extentreport.attachReporter(spark);
 	}
 		
@@ -35,40 +35,40 @@ public class PhrasesNetworks extends baseClass{
 	{
 		ExtentTest test=extentreport.createTest("Content - Phrases & Networks  ","To check the Content >  Phrases Option is placed and opened properly");
 		//---Dash board---
-		String tit=d.getTitle();
+		String tit=webDriver.getTitle();
 		if(tit.equals("Dashboard | Mobicip"))
 		{test.pass("Dashboard - title is correct  ");}
 		else{test.fail("Dashboard - title isn't correct ");}
 		boolean a=true;
-		try {d.findElement(By.xpath("//p[text()='Hello Vikram!']"));}
+		try {webDriver.findElement(By.xpath("//p[text()='Hello Vikram!']"));}
 		catch(NoSuchElementException e){a=false;
 		test.fail("Dashboard - Header was Incorrect");}
 		if(a==true){test.pass("Dashboard - Header was correct");}
 		
 		//---Content Option---
 		a=true;
-		d.findElement(By.xpath("//p[@title='ch1']")).click();
+		webDriver.findElement(By.xpath("//p[@title='ch1']")).click();
 		try {TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();}
-		try{d.findElement(By.xpath("//span[text()='Content']"));}
+		try{webDriver.findElement(By.xpath("//span[text()='Content']"));}
 		catch(NoSuchElementException e) {a=false;
 		test.fail("Content option is not present in dashboard");}
 		if(a==true){test.pass("Content option is present in dashboard");}
-		d.findElement(By.xpath("//span[text()='Content']")).click();
+		webDriver.findElement(By.xpath("//span[text()='Content']")).click();
 		try {TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();}
 
 		//---Content Web---
 		a=true;
-		try{d.findElement(By.xpath("//a[text()='Websites']"));}
+		try{webDriver.findElement(By.xpath("//a[text()='Websites']"));}
 		catch(NoSuchElementException e) {a=false;
 		test.fail("Content - Websites option is not present in dashboard");}
 		if(a==true){test.pass("Content - Websites option is present in dashboard");}
-		d.findElement(By.xpath("//a[text()='Websites']")).click();
+		webDriver.findElement(By.xpath("//a[text()='Websites']")).click();
 		try {TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();}
-	 	JavascriptExecutor j = (JavascriptExecutor)d;
+	 	JavascriptExecutor j = (JavascriptExecutor)webDriver;
 		j.executeScript("window.scrollBy(0,300)");
 		
 //		try {TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();}
-//		d.findElement(By.xpath("//span[text()='Networks']")).click();
+//		webDriver.findElement(By.xpath("//span[text()='Networks']")).click();
 //		try {TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();}
 	}	 
 	
@@ -77,17 +77,17 @@ public class PhrasesNetworks extends baseClass{
 	{
   		ExtentTest test=extentreport.createTest("Phrase - Title","Checking the title of the page ");
   		boolean a=true;
-  		JavascriptExecutor j = (JavascriptExecutor)d;
+  		JavascriptExecutor j = (JavascriptExecutor)webDriver;
 		j.executeScript("window.scrollBy(0,300)");
 		try {TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();}		
   		//---Content - ---
-  		try{d.findElement(By.xpath("//span[text()='Keywords and Phrases']"));}
+  		try{webDriver.findElement(By.xpath("//span[text()='Keywords and Phrases']"));}
   		catch(NoSuchElementException e) {a=false;
   		test.fail("Content - Keywords and Phrases option is not present in dashboard");}
   		if(a==true){test.pass("Content - Keywords and Phrases option is present in dashboard");}
-  		d.findElement(By.xpath("//span[text()='Keywords and Phrases']")).click();
+  		webDriver.findElement(By.xpath("//span[text()='Keywords and Phrases']")).click();
   		try {TimeUnit.SECONDS.sleep(4);} catch (InterruptedException e) {e.printStackTrace();}
-  		String tit=d.getTitle();
+  		String tit=webDriver.getTitle();
   		System.out.println(tit);
   		if(tit.equals("Phrases | Content Monitoring | Mobicip"))
   		{test.pass("Phrases - Title is correct  ");}
@@ -98,12 +98,12 @@ public class PhrasesNetworks extends baseClass{
  	public void d2_ContentPhrase(){
   		ExtentTest test= extentreport.createTest("Phrase - Header components","Checking the components of the header - Phrase ");
   		boolean a=true;
-		try{d.findElement(By.xpath("//a[@class='logo']"));
-			d.findElement(By.xpath("//span[@id='headerBack']"));
-			d.findElement(By.xpath("//div[@title='ch1']/div[@class='profile_image_container']"));
-			d.findElement(By.xpath("//p[text()='Phrases']"));
-			d.findElement(By.xpath("//a[starts-with(@class,'icon_notification')]"));
-			d.findElement(By.xpath("//div[@class='user_profile_container']"));}
+		try{webDriver.findElement(By.xpath("//a[@class='logo']"));
+			webDriver.findElement(By.xpath("//span[@id='headerBack']"));
+			webDriver.findElement(By.xpath("//div[@title='ch1']/div[@class='profile_image_container']"));
+			webDriver.findElement(By.xpath("//p[text()='Phrases']"));
+			webDriver.findElement(By.xpath("//a[starts-with(@class,'icon_notification')]"));
+			webDriver.findElement(By.xpath("//div[@class='user_profile_container']"));}
 		catch(NoSuchElementException e) {a=false;
 		test.fail("Content - Phrase - Header components are not present");}
 		if(a==true){test.pass("Content - Phrase -  Header components are present");}
@@ -114,18 +114,18 @@ public class PhrasesNetworks extends baseClass{
 	{
   		ExtentTest test=extentreport.createTest("Phrase - Add button and info line below the text box","Checking for the add button and info text");
   		boolean a=true;
-  		try{d.findElement(By.xpath("//p[text()='Use commas to add multiple phrases. Example: slenderman, bikini, kim kardashian']"));}
+  		try{webDriver.findElement(By.xpath("//p[text()='Use commas to add multiple phrases. Example: slenderman, bikini, kim kardashian']"));}
   		catch(NoSuchElementException e) {a=false;
   		test.fail("Content - Phrases - Info texts are not present");}
   		if(a==true){test.pass("Content - Phrases - Info texts are present");}
   		
-  		try{d.findElement(By.xpath("//input[@name='phrase']"));}
+  		try{webDriver.findElement(By.xpath("//input[@name='phrase']"));}
 		catch(NoSuchElementException e) {a=false;
 		test.fail("Content - Phrases - Text Box is not present");}
 		if(a==true){test.pass("Content - Phrase - Text Box is present");}
 		
 		a=true;
-		try{d.findElement(By.xpath("//button[@class='link_button add']"));}
+		try{webDriver.findElement(By.xpath("//button[@class='link_button add']"));}
 		catch(NoSuchElementException e) {a=false;
 		test.fail("Content - Phrases - Text Box Add button is not present");}
 		if(a==true){test.pass("Content - Phrases - Text Box Add button is present");}
@@ -136,12 +136,12 @@ public class PhrasesNetworks extends baseClass{
 	{
   		ExtentTest test=extentreport.createTest("No Phrases- Icon and text check","Checking for the icon and text when no Phrases are added");
   		boolean a=true;
-  		try{d.findElement(By.xpath("//span[text()='No phrases added']"));
-			d.findElement(By.xpath("//div[@class='no_data_container phrases']"));}
+  		try{webDriver.findElement(By.xpath("//span[text()='No phrases added']"));
+			webDriver.findElement(By.xpath("//div[@class='no_data_container phrases']"));}
   		catch(NoSuchElementException e) {a=false;
   		test.fail("No Phrases - Icon and Text is improper");}
   		if(a==true){test.pass("No Phrases - Icon and Text is proper");}
-  		d.navigate().refresh();
+  		webDriver.navigate().refresh();
   		try {TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();}
 	}
   	
@@ -150,111 +150,111 @@ public class PhrasesNetworks extends baseClass{
 	{
   		ExtentTest test=extentreport.createTest("Phrases - validation check","Checking the input field with multiple inputs");
   		boolean a=true;
-  		d.findElement(By.xpath("//input[@name='phrase']")).sendKeys("cricket");
-  		d.findElement(By.xpath("//button[@class='link_button add']")).click();
+  		webDriver.findElement(By.xpath("//input[@name='phrase']")).sendKeys("cricket");
+  		webDriver.findElement(By.xpath("//button[@class='link_button add']")).click();
 		try {TimeUnit.SECONDS.sleep(3);} catch (InterruptedException e) {e.printStackTrace();}
-  		try{d.findElement(By.xpath("//span[text()='cricket']"));}
+  		try{webDriver.findElement(By.xpath("//span[text()='cricket']"));}
   		catch(NoSuchElementException e) {a=false;
   		test.fail("Proper Phrase is not added");}
   		if(a==true){test.pass("Proper Phrase is added properly");}
   		
   		a=true;
-  		d.findElement(By.xpath("//input[@name='phrase']")).sendKeys("12345");
-  		d.findElement(By.xpath("//button[@class='link_button add']")).click();
+  		webDriver.findElement(By.xpath("//input[@name='phrase']")).sendKeys("12345");
+  		webDriver.findElement(By.xpath("//button[@class='link_button add']")).click();
   		try {TimeUnit.SECONDS.sleep(3);} catch (InterruptedException e) {e.printStackTrace();}
-  		try{d.findElement(By.xpath("//span[text()='12345']"));}
+  		try{webDriver.findElement(By.xpath("//span[text()='12345']"));}
   		catch(NoSuchElementException e) {a=false;
   		test.fail("Proper Phrase is not added");}
   		if(a==true){test.pass("Proper Phrase is added properly");}
   		
-  		d.findElement(By.xpath("//input[@name='phrase']")).sendKeys("#$D@ftr");
-  		d.findElement(By.xpath("//button[@class='link_button add']")).click();
+  		webDriver.findElement(By.xpath("//input[@name='phrase']")).sendKeys("#$D@ftr");
+  		webDriver.findElement(By.xpath("//button[@class='link_button add']")).click();
   		a=true;
   		try {TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();}
-  		try{d.findElement(By.xpath("//span[text()='Special Characters not allowed']"));}
+  		try{webDriver.findElement(By.xpath("//span[text()='Special Characters not allowed']"));}
   		catch(NoSuchElementException e) {a=false;
   		test.fail("Improper Phrase is added");}
   		if(a==true){test.pass("Improper Phrase is not added");}
-  		d.findElement(By.xpath("//input[@name='phrase']")).clear();
+  		webDriver.findElement(By.xpath("//input[@name='phrase']")).clear();
 
   		 // We're sorry, but something went wrong (500) 
-  		d.findElement(By.xpath("//input[@name='phrase']")).sendKeys("______");
-  		d.findElement(By.xpath("//button[@class='link_button add']")).click();
+  		webDriver.findElement(By.xpath("//input[@name='phrase']")).sendKeys("______");
+  		webDriver.findElement(By.xpath("//button[@class='link_button add']")).click();
   		a=true;
   		try {TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();}
-  		try{d.findElement(By.xpath("//span[text()='______']"));}
+  		try{webDriver.findElement(By.xpath("//span[text()='______']"));}
   		catch(NoSuchElementException e) {a=false;
   		test.fail("Proper Phrase is not added");}
   		if(a==true){test.pass("Proper Phrase is added properly");}
   		
-  		d.findElement(By.xpath("//input[@name='phrase']")).sendKeys("f1race,Real magic");
-  		d.findElement(By.xpath("//button[@class='link_button add']")).click();
+  		webDriver.findElement(By.xpath("//input[@name='phrase']")).sendKeys("f1race,Real magic");
+  		webDriver.findElement(By.xpath("//button[@class='link_button add']")).click();
   		a=true;
   		try {TimeUnit.SECONDS.sleep(3);} catch (InterruptedException e) {e.printStackTrace();}
-  		try{d.findElement(By.xpath("//span[text()='f1race']"));
-  			d.findElement(By.xpath("//span[text()='Real magic']"));}
+  		try{webDriver.findElement(By.xpath("//span[text()='f1race']"));
+  			webDriver.findElement(By.xpath("//span[text()='Real magic']"));}
   		catch(NoSuchElementException e) {a=false;
   		test.fail("Proper Phrase is not added");}
   		if(a==true){test.pass("Proper Phrase is added properly");}
   		
-  		d.findElement(By.xpath("//input[@name='phrase']")).sendKeys("1234@#$");
-  		d.findElement(By.xpath("//button[@class='link_button add']")).click();
+  		webDriver.findElement(By.xpath("//input[@name='phrase']")).sendKeys("1234@#$");
+  		webDriver.findElement(By.xpath("//button[@class='link_button add']")).click();
   		a=true;
-  		try{d.findElement(By.xpath("//span[text()='Special Characters not allowed']"));}
+  		try{webDriver.findElement(By.xpath("//span[text()='Special Characters not allowed']"));}
   		catch(NoSuchElementException e) {a=false;
   		test.fail("Error Message shown is not shown - Web added - Invalid Website");}
   		if(a==true){test.pass("Error Message shown is properly shown");}
-  		d.findElement(By.xpath("//input[@name='phrase']")).clear();
+  		webDriver.findElement(By.xpath("//input[@name='phrase']")).clear();
   		
-  		d.findElement(By.xpath("//input[@name='phrase']")).sendKeys("abc@#$");
-  		d.findElement(By.xpath("//button[@class='link_button add']")).click();
+  		webDriver.findElement(By.xpath("//input[@name='phrase']")).sendKeys("abc@#$");
+  		webDriver.findElement(By.xpath("//button[@class='link_button add']")).click();
   		a=true;
-  		try{d.findElement(By.xpath("//span[text()='Special Characters not allowed']"));}
+  		try{webDriver.findElement(By.xpath("//span[text()='Special Characters not allowed']"));}
   		catch(NoSuchElementException e) {a=false;
   		test.fail("Error Message shown is not shown - Web added - Invalid Website");}
   		if(a==true){test.pass("Error Message shown is properly shown");}
-  		d.findElement(By.xpath("//input[@name='phrase']")).clear();
+  		webDriver.findElement(By.xpath("//input[@name='phrase']")).clear();
 
-  		d.findElement(By.xpath("//input[@name='phrase']")).sendKeys("qwer,qwer");
-  		d.findElement(By.xpath("//button[@class='link_button add']")).click();
+  		webDriver.findElement(By.xpath("//input[@name='phrase']")).sendKeys("qwer,qwer");
+  		webDriver.findElement(By.xpath("//button[@class='link_button add']")).click();
   		a=true;
   		try {TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();}
-  		try{d.findElement(By.xpath("//span[text()='Duplicate Phrases Exist']"));}
+  		try{webDriver.findElement(By.xpath("//span[text()='Duplicate Phrases Exist']"));}
   		catch(NoSuchElementException e) {a=false;
   		test.fail("Duplicates website are added");}
   		if(a==true){test.pass("Duplicates website are not added");}
-  		d.findElement(By.xpath("//input[@name='phrase']")).clear();
+  		webDriver.findElement(By.xpath("//input[@name='phrase']")).clear();
   		
-  		d.findElement(By.xpath("//input[@name='phrase']")).sendKeys("cricket");
-  		d.findElement(By.xpath("//button[@class='link_button add']")).click();
+  		webDriver.findElement(By.xpath("//input[@name='phrase']")).sendKeys("cricket");
+  		webDriver.findElement(By.xpath("//button[@class='link_button add']")).click();
   		a=true;
   		try {TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();}
-  		try{d.findElement(By.xpath("//p[text()=' already added.']"));
-  			d.findElement(By.xpath("//button[text()='Okay']")).click();}
+  		try{webDriver.findElement(By.xpath("//p[text()=' already added.']"));
+  			webDriver.findElement(By.xpath("//button[text()='Okay']")).click();}
   		catch(NoSuchElementException e) {a=false;
   		test.fail("Duplicates website are added");}
   		if(a==true){test.pass("Duplicates website are not added");}
-  		d.findElement(By.xpath("//input[@name='phrase']")).clear();
+  		webDriver.findElement(By.xpath("//input[@name='phrase']")).clear();
   		
-  		d.findElement(By.xpath("//input[@name='phrase']")).sendKeys("knife,,redfish");
-  		d.findElement(By.xpath("//button[@class='link_button add']")).click();
+  		webDriver.findElement(By.xpath("//input[@name='phrase']")).sendKeys("knife,,redfish");
+  		webDriver.findElement(By.xpath("//button[@class='link_button add']")).click();
   		a=true;
   		try {TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();}
-  		try{d.findElement(By.xpath("//span[text()='Required Field']"));}
+  		try{webDriver.findElement(By.xpath("//span[text()='Required Field']"));}
   		catch(NoSuchElementException e) {a=false;
   		test.fail("Improper format is added");}
   		if(a==true){test.pass("Improper format is not added ");}
-  		d.findElement(By.xpath("//input[@name='phrase']")).clear();
+  		webDriver.findElement(By.xpath("//input[@name='phrase']")).clear();
   		
-  		d.findElement(By.xpath("//input[@name='phrase']")).sendKeys("        ");
-  		d.findElement(By.xpath("//button[@class='link_button add']")).click();
+  		webDriver.findElement(By.xpath("//input[@name='phrase']")).sendKeys("        ");
+  		webDriver.findElement(By.xpath("//button[@class='link_button add']")).click();
   		a=true;
   		try {TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();}
-  		try{d.findElement(By.xpath("//span[text()='Required Field']"));}
+  		try{webDriver.findElement(By.xpath("//span[text()='Required Field']"));}
   		catch(NoSuchElementException e) {a=false;
   		test.fail("Improper format is added");}
   		if(a==true){test.pass("Improper format is not added");}
-  		d.findElement(By.xpath("//input[@name='phrase']")).clear();
+  		webDriver.findElement(By.xpath("//input[@name='phrase']")).clear();
 	}
   	
   	@Test
@@ -262,15 +262,15 @@ public class PhrasesNetworks extends baseClass{
 	{
   		ExtentTest test=extentreport.createTest("Phrases - Duplicate Phrases check","Checking if able to add a Phrases that is already added");
   		boolean a=true;
-  		d.findElement(By.xpath("//input[@name='phrase']")).sendKeys("Real magic,cricket");
-  		d.findElement(By.xpath("//button[@class='link_button add']")).click();
+  		webDriver.findElement(By.xpath("//input[@name='phrase']")).sendKeys("Real magic,cricket");
+  		webDriver.findElement(By.xpath("//button[@class='link_button add']")).click();
   		try {TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();}
-  		try{d.findElement(By.xpath("//p[text()=' already added.']"));
-  			d.findElement(By.xpath("//button[text()='Okay']")).click();}
+  		try{webDriver.findElement(By.xpath("//p[text()=' already added.']"));
+  			webDriver.findElement(By.xpath("//button[text()='Okay']")).click();}
   		catch(NoSuchElementException e) {a=false;
   		test.fail("Duplicates website are added");}
   		if(a==true){test.pass("Duplicates website are not added");}
-  		d.findElement(By.xpath("//input[@name='phrase']")).clear();
+  		webDriver.findElement(By.xpath("//input[@name='phrase']")).clear();
 	}
   	
   	@Test
@@ -280,30 +280,30 @@ public class PhrasesNetworks extends baseClass{
   		boolean a=true;
   		//delete one phrase
   		try {TimeUnit.SECONDS.sleep(1);} catch (InterruptedException e) {e.printStackTrace();}
-  		d.findElement(By.xpath("//span[text()='f1race']/preceding::label[1]")).click();
+  		webDriver.findElement(By.xpath("//span[text()='f1race']/preceding::label[1]")).click();
   		try {TimeUnit.SECONDS.sleep(1);} catch (InterruptedException e) {e.printStackTrace();}
-  		try{d.findElement(By.xpath("//span[text()='1']"));
-  			d.findElement(By.xpath("//span[text()='phrase']"));
-  			d.findElement(By.xpath("//span[text()=' selected']"));
-  			d.findElement(By.xpath("//span[text()='Delete selected']"));} 
+  		try{webDriver.findElement(By.xpath("//span[text()='1']"));
+  			webDriver.findElement(By.xpath("//span[text()='phrase']"));
+  			webDriver.findElement(By.xpath("//span[text()=' selected']"));
+  			webDriver.findElement(By.xpath("//span[text()='Delete selected']"));} 
   		catch(NoSuchElementException e) {a=false;
   		test.fail("One phrase selected - not displayed properly");}
   		if(a==true){test.pass("One phrase selected - displayed properly");}
   		
   		a=true;
-  		d.findElement(By.xpath("//span[text()='Delete selected']")).click();
+  		webDriver.findElement(By.xpath("//span[text()='Delete selected']")).click();
   		try {TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();}
-  		try{d.findElement(By.xpath("//div[text()='Delete '  and text()='1' and text()=' blocked ' and text()='phrase' and text()='?']"));
-			d.findElement(By.xpath("//div[text()='No']"));
-			d.findElement(By.xpath("//button[text()='Yes']"));} 
+  		try{webDriver.findElement(By.xpath("//div[text()='Delete '  and text()='1' and text()=' blocked ' and text()='phrase' and text()='?']"));
+			webDriver.findElement(By.xpath("//div[text()='No']"));
+			webDriver.findElement(By.xpath("//button[text()='Yes']"));} 
 		catch(NoSuchElementException e) {a=false;
 		test.fail("One phrase Delete - Popup - not displayed properly");}
 		if(a==true){test.pass("One phrase Delete - Popup - displayed properly");}
 			
-		d.findElement(By.xpath("//button[text()='Yes']")).click();
+		webDriver.findElement(By.xpath("//button[text()='Yes']")).click();
 		try {TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();}
 		a=true;
-		try{d.findElement(By.xpath("//span[text()='f1race']"));} 
+		try{webDriver.findElement(By.xpath("//span[text()='f1race']"));} 
 		catch(NoSuchElementException e) {a=false;
 		test.pass("One website Delete - deleted properly");}
 		if(a==true){test.fail("One website Delete not deleted properly");}
@@ -311,65 +311,65 @@ public class PhrasesNetworks extends baseClass{
 		a=true;
   		//Delete more than one website
   		try {TimeUnit.SECONDS.sleep(1);} catch (InterruptedException e) {e.printStackTrace();}
-  		d.findElement(By.xpath("//span[text()='Real magic']/preceding::label[1]")).click();
-  		d.findElement(By.xpath("//span[text()='______']/preceding::label[1]")).click();
+  		webDriver.findElement(By.xpath("//span[text()='Real magic']/preceding::label[1]")).click();
+  		webDriver.findElement(By.xpath("//span[text()='______']/preceding::label[1]")).click();
   		try {TimeUnit.SECONDS.sleep(1);} catch (InterruptedException e) {e.printStackTrace();}
-  		try{d.findElement(By.xpath("//span[text()='2']"));
-  			d.findElement(By.xpath("//span[text()='phrases']"));
-  			d.findElement(By.xpath("//span[text()=' selected']"));
-  			d.findElement(By.xpath("//span[text()='Delete selected']"));} 
+  		try{webDriver.findElement(By.xpath("//span[text()='2']"));
+  			webDriver.findElement(By.xpath("//span[text()='phrases']"));
+  			webDriver.findElement(By.xpath("//span[text()=' selected']"));
+  			webDriver.findElement(By.xpath("//span[text()='Delete selected']"));} 
   		catch(NoSuchElementException e) {a=false;
   		test.fail("More than One phrases selected - not displayed properly");}
   		if(a==true){test.pass("More than One phrases selected - displayed properly");}
   		
   		a=true;
-  		d.findElement(By.xpath("//span[text()='Delete selected']")).click();
+  		webDriver.findElement(By.xpath("//span[text()='Delete selected']")).click();
   		try {TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();}
-  		try{d.findElement(By.xpath("//div[text()='Delete '  and text()='2' and text()=' blocked ' and text()='phrases' and text()='?']"));
-			d.findElement(By.xpath("//div[text()='No']"));
-			d.findElement(By.xpath("//button[text()='Yes']"));} 
+  		try{webDriver.findElement(By.xpath("//div[text()='Delete '  and text()='2' and text()=' blocked ' and text()='phrases' and text()='?']"));
+			webDriver.findElement(By.xpath("//div[text()='No']"));
+			webDriver.findElement(By.xpath("//button[text()='Yes']"));} 
 		catch(NoSuchElementException e) {a=false;
 		test.fail("More than One Websites Delete - Popup - not displayed properly");}
 		if(a==true){test.pass("More than One Websites Delete - Popup - displayed properly");}
 		
-		d.findElement(By.xpath("//button[text()='Yes']")).click(); 		
+		webDriver.findElement(By.xpath("//button[text()='Yes']")).click(); 		
 		try {TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();}
 		a=true;
-		try{d.findElement(By.xpath("//span[text()='Real magic']"));
-			d.findElement(By.xpath("//span[text()='______']"));} 
+		try{webDriver.findElement(By.xpath("//span[text()='Real magic']"));
+			webDriver.findElement(By.xpath("//span[text()='______']"));} 
 		catch(NoSuchElementException e) {a=false;
 		test.pass("More than One phrases Delete - deleted properly");}
 		if(a==true){test.fail("More than One phrases Delete not deleted properly");}
 		
 		//Delete All phrases
 		a=true;
-  		d.findElement(By.xpath("//span[text()='12345']/preceding::label[1]")).click();
+  		webDriver.findElement(By.xpath("//span[text()='12345']/preceding::label[1]")).click();
   		try {TimeUnit.SECONDS.sleep(1);} catch (InterruptedException e) {e.printStackTrace();}
-  		d.findElement(By.xpath("//label[@for='all_website_checked']")).click();
+  		webDriver.findElement(By.xpath("//label[@for='all_website_checked']")).click();
   		try {TimeUnit.SECONDS.sleep(1);} catch (InterruptedException e) {e.printStackTrace();}
-  		try{d.findElement(By.xpath("//span[text()='2']"));
-			d.findElement(By.xpath("//span[text()='phrases']"));
-			d.findElement(By.xpath("//span[text()=' selected']"));
-			d.findElement(By.xpath("//span[text()='Delete selected']"));}
+  		try{webDriver.findElement(By.xpath("//span[text()='2']"));
+			webDriver.findElement(By.xpath("//span[text()='phrases']"));
+			webDriver.findElement(By.xpath("//span[text()=' selected']"));
+			webDriver.findElement(By.xpath("//span[text()='Delete selected']"));}
   		catch(NoSuchElementException e) {a=false;
   		test.fail("All Websites selected - not displayed properly");}
   		if(a==true){test.pass("All websites selected - displayed properly");}
   		
   		a=true;
-  		d.findElement(By.xpath("//span[text()='Delete selected']")).click();
+  		webDriver.findElement(By.xpath("//span[text()='Delete selected']")).click();
   		try {TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();}
-  		try{d.findElement(By.xpath("//div[text()='Delete '  and text()='2' and text()=' blocked ' and text()='phrases' and text()='?']"));
-			d.findElement(By.xpath("//div[text()='No']"));
-			d.findElement(By.xpath("//button[text()='Yes']"));} 
+  		try{webDriver.findElement(By.xpath("//div[text()='Delete '  and text()='2' and text()=' blocked ' and text()='phrases' and text()='?']"));
+			webDriver.findElement(By.xpath("//div[text()='No']"));
+			webDriver.findElement(By.xpath("//button[text()='Yes']"));} 
 		catch(NoSuchElementException e) {a=false;
 		test.fail("More than One Websites Delete - Popup - not displayed properly - add properly 3 websites/ becoxzz of abc...com added previously in the error");}
 		if(a==true){test.pass("More than One Websites Delete - Popup - displayed properly");}
 		
-		d.findElement(By.xpath("//button[text()='Yes']")).click();
+		webDriver.findElement(By.xpath("//button[text()='Yes']")).click();
 		a=true;
 		try {TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();}		
 		a=true;
-		try{d.findElement(By.xpath("//span[text()='12345']"));} 
+		try{webDriver.findElement(By.xpath("//span[text()='12345']"));} 
 		catch(NoSuchElementException e) {a=false;
 		test.pass("All phrases Delete - deleted properly");}
 		if(a==true){test.fail("All phrases Delete not deleted properly");}
@@ -380,27 +380,27 @@ public class PhrasesNetworks extends baseClass{
 	{
   		ExtentTest test=extentreport.createTest("Phrases - Go back and visit again","Checking if the changes are retained when visited again");
   		boolean a=true;
-  		d.findElement(By.xpath("//input[@name='phrase']")).sendKeys("cricket");
-  		d.findElement(By.xpath("//button[@class='link_button add']")).click();
+  		webDriver.findElement(By.xpath("//input[@name='phrase']")).sendKeys("cricket");
+  		webDriver.findElement(By.xpath("//button[@class='link_button add']")).click();
 		try {TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();}		
-  		d.findElement(By.xpath("//span[@id='headerBack']")).click();
+  		webDriver.findElement(By.xpath("//span[@id='headerBack']")).click();
 		try {TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();}		
-		JavascriptExecutor j = (JavascriptExecutor)d;
+		JavascriptExecutor j = (JavascriptExecutor)webDriver;
 		j.executeScript("window.scrollBy(0,300)");
 		try {TimeUnit.SECONDS.sleep(3);} catch (InterruptedException e) {e.printStackTrace();}		
-  		d.findElement(By.xpath("//span[text()='Keywords and Phrases']")).click();
+  		webDriver.findElement(By.xpath("//span[text()='Keywords and Phrases']")).click();
 		try {TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();}		
-		try{d.findElement(By.xpath("//span[text()='cricket']"));} 
+		try{webDriver.findElement(By.xpath("//span[text()='cricket']"));} 
 		catch(NoSuchElementException e) {a=false;
 		test.fail("The changes are not retained when visited again");}
 		if(a==true){test.pass("The changes are retained when visited again");}
-  		d.findElement(By.xpath("//span[text()='cricket']/preceding::label[1]")).click();
+  		webDriver.findElement(By.xpath("//span[text()='cricket']/preceding::label[1]")).click();
 		try {TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();}		
-  		d.findElement(By.xpath("//span[text()='Delete selected']")).click();
+  		webDriver.findElement(By.xpath("//span[text()='Delete selected']")).click();
 		try {TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();}		
-		d.findElement(By.xpath("//button[text()='Yes']")).click();
+		webDriver.findElement(By.xpath("//button[text()='Yes']")).click();
 		try {TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();}		
-  		d.findElement(By.xpath("//span[@id='headerBack']")).click();
+  		webDriver.findElement(By.xpath("//span[@id='headerBack']")).click();
 		try {TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();}
 	}
   			  	  	
@@ -409,17 +409,17 @@ public class PhrasesNetworks extends baseClass{
 	{
   		ExtentTest test=extentreport.createTest("Networks - Title","Checking the title of the page ");
   		boolean a=true;
-  		JavascriptExecutor j = (JavascriptExecutor)d;
+  		JavascriptExecutor j = (JavascriptExecutor)webDriver;
 		j.executeScript("window.scrollBy(0,300)");
 		try {TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();}		
   		//---Content - Networks---
-  		try{d.findElement(By.xpath("//span[text()='Networks']"));}
+  		try{webDriver.findElement(By.xpath("//span[text()='Networks']"));}
   		catch(NoSuchElementException e) {a=false;
   		test.fail("Content - Networks option is not present in dashboard");}
   		if(a==true){test.pass("Content - Networks option is present in dashboard");}
-  		d.findElement(By.xpath("//span[text()='Networks']")).click();
+  		webDriver.findElement(By.xpath("//span[text()='Networks']")).click();
   		try {TimeUnit.SECONDS.sleep(4);} catch (InterruptedException e) {e.printStackTrace();}
-  		String tit=d.getTitle();
+  		String tit=webDriver.getTitle();
   		System.out.println(tit);
   		if(tit.equals("Networks | Content Monitoring | Mobicip"))
   		{test.pass("Networks - Title is correct  ");}
@@ -431,12 +431,12 @@ public class PhrasesNetworks extends baseClass{
 	{
   		ExtentTest test=extentreport.createTest("Networks - Header components","Checking the components of the header");
   		boolean a=true;
-  		try{d.findElement(By.xpath("//a[@class='logo']"));
-  			d.findElement(By.xpath("//span[@id='headerBack']"));
-  			d.findElement(By.xpath("//div[@title='ch1']/div[@class='profile_image_container']"));
-  			d.findElement(By.xpath("//p[text()='Networks']"));
-  			d.findElement(By.xpath("//a[starts-with(@class,'icon_notification')]"));
-			d.findElement(By.xpath("//div[@class='user_profile_container']"));}
+  		try{webDriver.findElement(By.xpath("//a[@class='logo']"));
+  			webDriver.findElement(By.xpath("//span[@id='headerBack']"));
+  			webDriver.findElement(By.xpath("//div[@title='ch1']/div[@class='profile_image_container']"));
+  			webDriver.findElement(By.xpath("//p[text()='Networks']"));
+  			webDriver.findElement(By.xpath("//a[starts-with(@class,'icon_notification')]"));
+			webDriver.findElement(By.xpath("//div[@class='user_profile_container']"));}
   		catch(NoSuchElementException e) {a=false;
   		test.fail("Content - Networks - Header components are not present");}
   		if(a==true){test.pass("Content - Networks -  Header components are present");}
@@ -447,20 +447,20 @@ public class PhrasesNetworks extends baseClass{
 	{
   		ExtentTest test=extentreport.createTest("Networks - Info text ","Checking for the information text");
   		boolean a=true;
-  		try{d.findElement(By.xpath("//span[starts-with(text(),\"Disable Mobicip on your child\")]"));}
+  		try{webDriver.findElement(By.xpath("//span[starts-with(text(),\"Disable Mobicip on your child\")]"));}
   		catch(NoSuchElementException e) {a=false;
   		test.fail("Content - Networks - Info texts are not present");}
   		if(a==true){test.pass("Content - Networks - Info texts are present");}
   		
-  		try{d.findElement(By.xpath("//span[text()='Single IP address']"));
-  			d.findElement(By.xpath("//span[text()='IP Address Range']"));}
+  		try{webDriver.findElement(By.xpath("//span[text()='Single IP address']"));
+  			webDriver.findElement(By.xpath("//span[text()='IP Address Range']"));}
 		catch(NoSuchElementException e) {a=false;
 		test.fail("Content - Networks - Two branches is not present");}
 		if(a==true){test.pass("Content - Networks - Two branches is present");}
 		
 		a=true;
-		try{d.findElement(By.xpath("//div[@class='single_ip_wrapper']/descendant::span[text()='Add']"));
-			d.findElement(By.xpath("//div[@class='range_ip_wrapper']/descendant::span[text()='Add']"));}
+		try{webDriver.findElement(By.xpath("//div[@class='single_ip_wrapper']/descendant::span[text()='Add']"));
+			webDriver.findElement(By.xpath("//div[@class='range_ip_wrapper']/descendant::span[text()='Add']"));}
 		catch(NoSuchElementException e) {a=false;
 		test.fail("Content - Networks -  Add button is not present");}
 		if(a==true){test.pass("Content - Networks - Add button is present");}
@@ -471,23 +471,23 @@ public class PhrasesNetworks extends baseClass{
 	{
   		ExtentTest test=extentreport.createTest("Add button and add network pop-up - Single IP address","Checking for the add button and Pop-up");
   		boolean a=true;
-  		d.findElement(By.xpath("//div[@class='single_ip_wrapper']/descendant::span[text()='Add']")).click();
+  		webDriver.findElement(By.xpath("//div[@class='single_ip_wrapper']/descendant::span[text()='Add']")).click();
   		try {TimeUnit.SECONDS.sleep(3);} catch (InterruptedException e) {e.printStackTrace();}
-  		try{d.findElement(By.xpath("//p[text()='Add single IP address']"));}
+  		try{webDriver.findElement(By.xpath("//p[text()='Add single IP address']"));}
   		catch(NoSuchElementException e) {a=false;
   		test.fail("Content - Networks -  Add button is not working");}
   		if(a==true){test.pass("Content - Networks - Add button is working");}
   		
   		a=true;
-  		try{d.findElement(By.xpath("//p[text()='Add single IP address']"));
-  			d.findElement(By.xpath("//label[text()='IP Address']"));
-  			d.findElement(By.xpath("//input[@placeholder='Enter IP address to allow - Example 192.168.1.1']"));
-  			d.findElement(By.xpath("//div[text()='Cancel']"));
-  			d.findElement(By.xpath("//button[text()='Add']"));} 
+  		try{webDriver.findElement(By.xpath("//p[text()='Add single IP address']"));
+  			webDriver.findElement(By.xpath("//label[text()='IP Address']"));
+  			webDriver.findElement(By.xpath("//input[@placeholder='Enter IP address to allow - Example 192.168.1.1']"));
+  			webDriver.findElement(By.xpath("//div[text()='Cancel']"));
+  			webDriver.findElement(By.xpath("//button[text()='Add']"));} 
   		catch(NoSuchElementException e) {a=false;
   		test.fail("Content - Networks -  Pop-up is improprer / Elements are missing ");}
   		if(a==true){test.pass("Content - Networks -  Pop-up is proprer");}
-  		d.findElement(By.xpath("//div[text()='Cancel']")).click(); 
+  		webDriver.findElement(By.xpath("//div[text()='Cancel']")).click(); 
   		try {TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();}
 	}
 	
@@ -496,13 +496,13 @@ public class PhrasesNetworks extends baseClass{
 	{
   		ExtentTest test=extentreport.createTest("Networks - No Single IP address - Icon and text check","Checking for the icon and text when no Single IP address are added");
   		boolean a=true;
-  		d.findElement(By.xpath("//span[text()='Single IP address']")).click();
-  		try{d.findElement(By.xpath("//div[@class='single_ip_wrapper']/descendant::span[text()='No network added']"));
-  			d.findElement(By.xpath("//div[@class='single_ip_wrapper']/descendant::div[@class='no_data_container networks']"));}
+  		webDriver.findElement(By.xpath("//span[text()='Single IP address']")).click();
+  		try{webDriver.findElement(By.xpath("//div[@class='single_ip_wrapper']/descendant::span[text()='No network added']"));
+  			webDriver.findElement(By.xpath("//div[@class='single_ip_wrapper']/descendant::div[@class='no_data_container networks']"));}
 		catch(NoSuchElementException e) {a=false;
 		test.fail("No Networks - Icon and Text is improper");}
 		if(a==true){test.pass("No Networks - Icon and Text is proper");}
-		d.navigate().refresh();
+		webDriver.navigate().refresh();
 		try {TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();}
 	}
 	
@@ -511,133 +511,133 @@ public class PhrasesNetworks extends baseClass{
 	{
   		ExtentTest test=extentreport.createTest("Networks - Single IP address - validation check","Checking the input field with multiple inputs");
   		boolean a=true;
-  		d.findElement(By.xpath("//div[@class='single_ip_wrapper']/descendant::span[text()='Add']")).click();
+  		webDriver.findElement(By.xpath("//div[@class='single_ip_wrapper']/descendant::span[text()='Add']")).click();
 		try {TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();}
 		//1.1.1.1
-  		d.findElement(By.xpath("//input[@type='text']")).sendKeys("1.1.1.1");
-  		d.findElement(By.xpath("//button[text()='Add']")).click();
+  		webDriver.findElement(By.xpath("//input[@type='text']")).sendKeys("1.1.1.1");
+  		webDriver.findElement(By.xpath("//button[text()='Add']")).click();
 		try {TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();}
-  		d.findElement(By.xpath("//span[text()='Single IP address']")).click();
+  		webDriver.findElement(By.xpath("//span[text()='Single IP address']")).click();
 		try {TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();}
-  		try{d.findElement(By.xpath("//div[text()='1.1.1.1']"));}
+  		try{webDriver.findElement(By.xpath("//div[text()='1.1.1.1']"));}
   		catch(NoSuchElementException e) {a=false;
   		test.fail("Proper Single Network is not added");}
   		if(a==true){test.pass("Proper Single Network is added properly");}
   		//1.23.45.167
-  		d.findElement(By.xpath("//div[@class='single_ip_wrapper']/descendant::span[text()='Add']")).click();
+  		webDriver.findElement(By.xpath("//div[@class='single_ip_wrapper']/descendant::span[text()='Add']")).click();
 		try {TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();}
   		a=true;
-  		d.findElement(By.xpath("//input[@type='text']")).sendKeys("1.23.45.167");
-  		d.findElement(By.xpath("//button[text()='Add']")).click();
+  		webDriver.findElement(By.xpath("//input[@type='text']")).sendKeys("1.23.45.167");
+  		webDriver.findElement(By.xpath("//button[text()='Add']")).click();
   		try {TimeUnit.SECONDS.sleep(3);} catch (InterruptedException e) {e.printStackTrace();}
-  		try{d.findElement(By.xpath("//div[text()='1.23.45.167']"));}
+  		try{webDriver.findElement(By.xpath("//div[text()='1.23.45.167']"));}
   		catch(NoSuchElementException e) {a=false;
   		test.fail("Proper Single Network is not added");}
   		if(a==true){test.pass("Proper Single Network is added properly");}
   		//a.b.c.d
-  		d.findElement(By.xpath("//div[@class='single_ip_wrapper']/descendant::span[text()='Add']")).click();
+  		webDriver.findElement(By.xpath("//div[@class='single_ip_wrapper']/descendant::span[text()='Add']")).click();
 		try {TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();}
-  		d.findElement(By.xpath("//input[@type='text']")).sendKeys("a.b.c.d");
-  		d.findElement(By.xpath("//button[text()='Add']")).click();
+  		webDriver.findElement(By.xpath("//input[@type='text']")).sendKeys("a.b.c.d");
+  		webDriver.findElement(By.xpath("//button[text()='Add']")).click();
   		a=true;
   		try {TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();}
-  		try{d.findElement(By.xpath("//span[text()='Invalid: Enter a valid value']"));}
+  		try{webDriver.findElement(By.xpath("//span[text()='Invalid: Enter a valid value']"));}
   		catch(NoSuchElementException e) {a=false;
   		test.fail("Improper Single Network is added");}
   		if(a==true){test.pass("Improper Single Network is not added");}
-  		d.findElement(By.xpath("//input[@type='text']")).clear();
+  		webDriver.findElement(By.xpath("//input[@type='text']")).clear();
   		//1.a.b.3
-  		d.findElement(By.xpath("//input[@type='text']")).sendKeys("1.a.b.3");
-  		d.findElement(By.xpath("//button[text()='Add']")).click();
+  		webDriver.findElement(By.xpath("//input[@type='text']")).sendKeys("1.a.b.3");
+  		webDriver.findElement(By.xpath("//button[text()='Add']")).click();
   		a=true;
   		try {TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();}
-  		try{d.findElement(By.xpath("//span[text()='Invalid: Enter a valid value']"));}
+  		try{webDriver.findElement(By.xpath("//span[text()='Invalid: Enter a valid value']"));}
   		catch(NoSuchElementException e) {a=false;
   		test.fail("Improper Single Network is added");}
   		if(a==true){test.pass("Improper Single Network is not added properly");}
-  		d.findElement(By.xpath("//input[@type='text']")).clear();
+  		webDriver.findElement(By.xpath("//input[@type='text']")).clear();
   		//255.255.255.255
-  		d.findElement(By.xpath("//input[@type='text']")).sendKeys("255.255.255.255");
-  		d.findElement(By.xpath("//button[text()='Add']")).click();
+  		webDriver.findElement(By.xpath("//input[@type='text']")).sendKeys("255.255.255.255");
+  		webDriver.findElement(By.xpath("//button[text()='Add']")).click();
   		try {TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();}
   		a=true;
   		try {TimeUnit.SECONDS.sleep(3);} catch (InterruptedException e) {e.printStackTrace();}
-  		try{d.findElement(By.xpath("//div[text()='255.255.255.255']"));}
+  		try{webDriver.findElement(By.xpath("//div[text()='255.255.255.255']"));}
   		catch(NoSuchElementException e) {a=false;
   		test.fail("Proper Single Network is not added");}
   		if(a==true){test.pass("Proper Single Network is added properly");}
   		//255.255.255.256
-  		d.findElement(By.xpath("//div[@class='single_ip_wrapper']/descendant::span[text()='Add']")).click();
+  		webDriver.findElement(By.xpath("//div[@class='single_ip_wrapper']/descendant::span[text()='Add']")).click();
 		try {TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();}
-  		d.findElement(By.xpath("//input[@type='text']")).sendKeys("255.255.255.256");
-  		d.findElement(By.xpath("//button[text()='Add']")).click();
+  		webDriver.findElement(By.xpath("//input[@type='text']")).sendKeys("255.255.255.256");
+  		webDriver.findElement(By.xpath("//button[text()='Add']")).click();
   		a=true;
   		try {TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();}
-  		try{d.findElement(By.xpath("//span[text()='Invalid: Enter a valid value']"));}
+  		try{webDriver.findElement(By.xpath("//span[text()='Invalid: Enter a valid value']"));}
   		catch(NoSuchElementException e) {a=false;
   		test.fail("Error Message shown is not shown - Web added - Invalid Website");}
   		if(a==true){test.pass("Error Message shown is properly shown");}
-  		d.findElement(By.xpath("//input[@type='text']")).clear();
+  		webDriver.findElement(By.xpath("//input[@type='text']")).clear();
   		//2.5.1.256
-  		d.findElement(By.xpath("//input[@type='text']")).sendKeys("2.5.1.256");
-  		d.findElement(By.xpath("//button[text()='Add']")).click();
+  		webDriver.findElement(By.xpath("//input[@type='text']")).sendKeys("2.5.1.256");
+  		webDriver.findElement(By.xpath("//button[text()='Add']")).click();
   		a=true;
   		try {TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();}
-  		try{d.findElement(By.xpath("//span[text()='Invalid: Enter a valid value']"));}
+  		try{webDriver.findElement(By.xpath("//span[text()='Invalid: Enter a valid value']"));}
   		catch(NoSuchElementException e) {a=false;
   		test.fail("Error Message shown is not shown - Web added - Invalid Website");}
   		if(a==true){test.pass("Error Message shown is properly shown");}
-  		d.findElement(By.xpath("//input[@type='text']")).clear();
+  		webDriver.findElement(By.xpath("//input[@type='text']")).clear();
   		//1.1.1.a
-  		d.findElement(By.xpath("//input[@type='text']")).sendKeys("1.1.1.a");
-  		d.findElement(By.xpath("//button[text()='Add']")).click();
+  		webDriver.findElement(By.xpath("//input[@type='text']")).sendKeys("1.1.1.a");
+  		webDriver.findElement(By.xpath("//button[text()='Add']")).click();
   		a=true;
   		try {TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();}
-  		try{d.findElement(By.xpath("//span[text()='Invalid: Enter a valid value']"));}
+  		try{webDriver.findElement(By.xpath("//span[text()='Invalid: Enter a valid value']"));}
   		catch(NoSuchElementException e) {a=false;
   		test.fail("Error Message shown is not shown - Web added - Invalid Website");}
   		if(a==true){test.pass("Error Message shown is properly shown");}
-  		d.findElement(By.xpath("//input[@type='text']")).clear();
+  		webDriver.findElement(By.xpath("//input[@type='text']")).clear();
   		//11..1.1
-  		d.findElement(By.xpath("//input[@type='text']")).sendKeys("11..1.1");
-  		d.findElement(By.xpath("//button[text()='Add']")).click();
+  		webDriver.findElement(By.xpath("//input[@type='text']")).sendKeys("11..1.1");
+  		webDriver.findElement(By.xpath("//button[text()='Add']")).click();
   		a=true;
   		try {TimeUnit.SECONDS.sleep(4);} catch (InterruptedException e) {e.printStackTrace();}
-  		try{d.findElement(By.xpath("//span[text()='Invalid: Enter a valid value']"));}
+  		try{webDriver.findElement(By.xpath("//span[text()='Invalid: Enter a valid value']"));}
   		catch(NoSuchElementException e) {a=false;
   		test.fail("Error Message shown is not shown - Web added - Invalid");}
   		if(a==true){test.pass("Error Message shown is properly shown");}
-  		d.findElement(By.xpath("//input[@type='text']")).clear();
+  		webDriver.findElement(By.xpath("//input[@type='text']")).clear();
   		//Blank space
-  		d.findElement(By.xpath("//input[@type='text']")).sendKeys("     ");
-  		d.findElement(By.xpath("//button[text()='Add']")).click();
+  		webDriver.findElement(By.xpath("//input[@type='text']")).sendKeys("     ");
+  		webDriver.findElement(By.xpath("//button[text()='Add']")).click();
   		a=true;
   		try {TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();}
-  		try{d.findElement(By.xpath("//span[text()='Required Field']"));}
+  		try{webDriver.findElement(By.xpath("//span[text()='Required Field']"));}
   		catch(NoSuchElementException e) {a=false;
   		test.fail("Improper format is added");}
   		if(a==true){test.pass("Improper format is not added - asking required field");}
-  		d.findElement(By.xpath("//input[@type='text']")).clear();
+  		webDriver.findElement(By.xpath("//input[@type='text']")).clear();
   		//255.255.255.1
-  		d.findElement(By.xpath("//input[@type='text']")).sendKeys("255.255.255.1");
-  		d.findElement(By.xpath("//button[text()='Add']")).click();
+  		webDriver.findElement(By.xpath("//input[@type='text']")).sendKeys("255.255.255.1");
+  		webDriver.findElement(By.xpath("//button[text()='Add']")).click();
   		try {TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();}
   		//1.2.3.45
-  		d.findElement(By.xpath("//div[@class='single_ip_wrapper']/descendant::span[text()='Add']")).click();
+  		webDriver.findElement(By.xpath("//div[@class='single_ip_wrapper']/descendant::span[text()='Add']")).click();
 		try {TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();}
-  		d.findElement(By.xpath("//input[@type='text']")).sendKeys("1.2.3.45");
-  		d.findElement(By.xpath("//button[text()='Add']")).click();
+  		webDriver.findElement(By.xpath("//input[@type='text']")).sendKeys("1.2.3.45");
+  		webDriver.findElement(By.xpath("//button[text()='Add']")).click();
   		try {TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();}
   		//54.231.55.98
-  		d.findElement(By.xpath("//div[@class='single_ip_wrapper']/descendant::span[text()='Add']")).click();
+  		webDriver.findElement(By.xpath("//div[@class='single_ip_wrapper']/descendant::span[text()='Add']")).click();
 		try {TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();}
-  		d.findElement(By.xpath("//input[@type='text']")).sendKeys("54.231.55.98");
-  		d.findElement(By.xpath("//button[text()='Add']")).click();
+  		webDriver.findElement(By.xpath("//input[@type='text']")).sendKeys("54.231.55.98");
+  		webDriver.findElement(By.xpath("//button[text()='Add']")).click();
   		try {TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();}
   		//Checking other three entered details
-  		try{d.findElement(By.xpath("//div[text()='255.255.255.1']"));
-  			d.findElement(By.xpath("//div[text()='1.2.3.45']"));
-  			d.findElement(By.xpath("//div[text()='54.231.55.98']"));}
+  		try{webDriver.findElement(By.xpath("//div[text()='255.255.255.1']"));
+  			webDriver.findElement(By.xpath("//div[text()='1.2.3.45']"));
+  			webDriver.findElement(By.xpath("//div[text()='54.231.55.98']"));}
   		catch(NoSuchElementException e) {a=false;
   		test.fail("Networks are not added properly");}
   		if(a==true){test.pass("Networks are added properly");}
@@ -648,17 +648,17 @@ public class PhrasesNetworks extends baseClass{
 	{
   		ExtentTest test=extentreport.createTest("Networks - Duplicate Single IP address check","Checking if able to add a Single IP address  that is already added");
   		boolean a=true;
-  		d.findElement(By.xpath("//div[@class='single_ip_wrapper']/descendant::span[text()='Add']")).click();
+  		webDriver.findElement(By.xpath("//div[@class='single_ip_wrapper']/descendant::span[text()='Add']")).click();
 		try {TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();}
 		//1.1.1.1
-  		d.findElement(By.xpath("//input[@type='text']")).sendKeys("1.1.1.1");
-  		d.findElement(By.xpath("//button[text()='Add']")).click();
+  		webDriver.findElement(By.xpath("//input[@type='text']")).sendKeys("1.1.1.1");
+  		webDriver.findElement(By.xpath("//button[text()='Add']")).click();
 		try {TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();}
-  		try{d.findElement(By.xpath("//span[text()='IP address already there']"));}
+  		try{webDriver.findElement(By.xpath("//span[text()='IP address already there']"));}
   		catch(NoSuchElementException e) {a=false;
   		test.fail("Duplicate networks are allowed");}
   		if(a==true){test.pass("Duplicate networks are not added");}
-  		d.findElement(By.xpath("//div[text()='Cancel']")).click();
+  		webDriver.findElement(By.xpath("//div[text()='Cancel']")).click();
 		try {TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();}
 	}
 	
@@ -667,16 +667,16 @@ public class PhrasesNetworks extends baseClass{
 	{
   		ExtentTest test=extentreport.createTest("Single IP address  - Go back and visit again","Checking if the changes are retained when visited again");
   		boolean a=true;
-  		d.findElement(By.xpath("//span[@id='headerBack']")).click();
+  		webDriver.findElement(By.xpath("//span[@id='headerBack']")).click();
 		try {TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();}		
-		JavascriptExecutor j = (JavascriptExecutor)d;
+		JavascriptExecutor j = (JavascriptExecutor)webDriver;
 		j.executeScript("window.scrollBy(0,500)");
 		try {TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();}		
-  		d.findElement(By.xpath("//span[text()='Networks']")).click();
+  		webDriver.findElement(By.xpath("//span[text()='Networks']")).click();
 		try {TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();}		
-		d.findElement(By.xpath("//span[text()='Single IP address']")).click();
+		webDriver.findElement(By.xpath("//span[text()='Single IP address']")).click();
 		try {TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();}
-		try{d.findElement(By.xpath("//div[text()='255.255.255.1']"));} 
+		try{webDriver.findElement(By.xpath("//div[text()='255.255.255.1']"));} 
 		catch(NoSuchElementException e) {a=false;
 		test.fail("The changes are not retained when visited again");}
 		if(a==true){test.pass("The changes are retained when visited again");}
@@ -689,18 +689,18 @@ public class PhrasesNetworks extends baseClass{
   		boolean a=true;
   		//delete one network
   		try {TimeUnit.SECONDS.sleep(1);} catch (InterruptedException e) {e.printStackTrace();}
-  		d.findElement(By.xpath("//div[text()='255.255.255.1']/preceding::label[@class='check_box'][1]")).click();
+  		webDriver.findElement(By.xpath("//div[text()='255.255.255.1']/preceding::label[@class='check_box'][1]")).click();
   		try {TimeUnit.SECONDS.sleep(1);} catch (InterruptedException e) {e.printStackTrace();}
-  		try{d.findElement(By.xpath("//span[text()='1' and text()='IP address' and text()=' selected']"));
-  			d.findElement(By.xpath("//span[text()='Delete selected']"));} 
+  		try{webDriver.findElement(By.xpath("//span[text()='1' and text()='IP address' and text()=' selected']"));
+  			webDriver.findElement(By.xpath("//span[text()='Delete selected']"));} 
   		catch(NoSuchElementException e) {a=false;
   		test.fail("One Single IP address selected - not displayed properly");}
   		if(a==true){test.pass("One Single IP address selected - displayed properly");}
   		
   		a=true;
-  		d.findElement(By.xpath("//span[text()='Delete selected']")).click();
+  		webDriver.findElement(By.xpath("//span[text()='Delete selected']")).click();
   		try {TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();}
-		try{d.findElement(By.xpath("//div[text()='255.255.255.1']"));} 
+		try{webDriver.findElement(By.xpath("//div[text()='255.255.255.1']"));} 
 		catch(NoSuchElementException e) {a=false;
 		test.pass("One Single IP address delete - deleted properly");}
 		if(a==true){test.fail("One Single IP address delete not deleted properly");}
@@ -708,45 +708,45 @@ public class PhrasesNetworks extends baseClass{
   		//Delete more than one website
 		a=true;
   		try {TimeUnit.SECONDS.sleep(1);} catch (InterruptedException e) {e.printStackTrace();}
-  		d.findElement(By.xpath("//div[text()='1.2.3.45']/preceding::label[@class='check_box'][1]")).click();
-  		d.findElement(By.xpath("//div[text()='54.231.55.98']/preceding::label[@class='check_box'][1]")).click();
+  		webDriver.findElement(By.xpath("//div[text()='1.2.3.45']/preceding::label[@class='check_box'][1]")).click();
+  		webDriver.findElement(By.xpath("//div[text()='54.231.55.98']/preceding::label[@class='check_box'][1]")).click();
   		try {TimeUnit.SECONDS.sleep(1);} catch (InterruptedException e) {e.printStackTrace();}
-  		try{d.findElement(By.xpath("//span[text()='2' and text()='IP addresses' and text()=' selected']"));
-  			d.findElement(By.xpath("//span[text()='Delete selected']"));}
+  		try{webDriver.findElement(By.xpath("//span[text()='2' and text()='IP addresses' and text()=' selected']"));
+  			webDriver.findElement(By.xpath("//span[text()='Delete selected']"));}
   		catch(NoSuchElementException e) {a=false;
   		test.fail("More than One Single IP address selected - not displayed properly");}
   		if(a==true){test.pass("More than One Single IP address selected - displayed properly");}
   		
   		a=true;
-  		d.findElement(By.xpath("//span[text()='Delete selected']")).click();
+  		webDriver.findElement(By.xpath("//span[text()='Delete selected']")).click();
 		try {TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();}
-		try{d.findElement(By.xpath("//div[text()='1.2.3.45']"));
-			d.findElement(By.xpath("//div[text()='54.231.55.98']"));} 
+		try{webDriver.findElement(By.xpath("//div[text()='1.2.3.45']"));
+			webDriver.findElement(By.xpath("//div[text()='54.231.55.98']"));} 
 		catch(NoSuchElementException e) {a=false;
 		test.pass("More than One Single IP address Delete - deleted properly");}
 		if(a==true){test.fail("More than One Single IP address Delete not deleted properly");}
 		
 		//Delete All websites
 		a=true;
-  		d.findElement(By.xpath("//div[text()='255.255.255.255']/preceding::label[@class='check_box'][1]")).click();
+  		webDriver.findElement(By.xpath("//div[text()='255.255.255.255']/preceding::label[@class='check_box'][1]")).click();
   		try {TimeUnit.SECONDS.sleep(1);} catch (InterruptedException e) {e.printStackTrace();}
-  		d.findElement(By.xpath("//label[@for='all_ip_boxes_checked']")).click();
+  		webDriver.findElement(By.xpath("//label[@for='all_ip_boxes_checked']")).click();
   		try {TimeUnit.SECONDS.sleep(1);} catch (InterruptedException e) {e.printStackTrace();}
-  		try{d.findElement(By.xpath("//span[text()='3' and text()='IP addresses' and text()=' selected']"));
-			d.findElement(By.xpath("//span[text()='Delete selected']"));}
+  		try{webDriver.findElement(By.xpath("//span[text()='3' and text()='IP addresses' and text()=' selected']"));
+			webDriver.findElement(By.xpath("//span[text()='Delete selected']"));}
   		catch(NoSuchElementException e) {a=false;
   		test.fail("All Websites selected - not displayed properly");}
   		if(a==true){test.pass("All websites selected - displayed properly");}
   		
   		a=true;
-  		d.findElement(By.xpath("//span[text()='Delete selected']")).click();
+  		webDriver.findElement(By.xpath("//span[text()='Delete selected']")).click();
 		try {TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();}		
 		a=true;
-		try{d.findElement(By.xpath("//div[text()='255.255.255.255']"));} 
+		try{webDriver.findElement(By.xpath("//div[text()='255.255.255.255']"));} 
 		catch(NoSuchElementException e) {a=false;
 		test.pass("All phrases Delete - deleted properly");}
 		if(a==true){test.fail("All phrases Delete not deleted properly");}
-		d.findElement(By.xpath("//span[text()='Single IP address']")).click();
+		webDriver.findElement(By.xpath("//span[text()='Single IP address']")).click();
   		try {TimeUnit.SECONDS.sleep(3);} catch (InterruptedException e) {e.printStackTrace();}
 	}
 	
@@ -755,25 +755,25 @@ public class PhrasesNetworks extends baseClass{
 	{
   		ExtentTest test=extentreport.createTest("Add button and add network pop-up - IP Address Range","Checking for the add button and Pop-up");
   		boolean a=true;
-  		d.findElement(By.xpath("//div[@class='range_ip_wrapper']/descendant::span[text()='Add']")).click();
+  		webDriver.findElement(By.xpath("//div[@class='range_ip_wrapper']/descendant::span[text()='Add']")).click();
   		try {TimeUnit.SECONDS.sleep(3);} catch (InterruptedException e) {e.printStackTrace();}
-  		try{d.findElement(By.xpath("//p[text()='Add IP Address Range']"));}
+  		try{webDriver.findElement(By.xpath("//p[text()='Add IP Address Range']"));}
   		catch(NoSuchElementException e) {a=false;
   		test.fail("Content - Network range - Add button is not working");}
   		if(a==true){test.pass("Content - Network range - Add button is working");}
   	
   		a=true;
-  		try{d.findElement(By.xpath("//p[text()='Add IP Address Range']"));
-  			d.findElement(By.xpath("//label[text()='IP Address']"));
-  			d.findElement(By.xpath("//label[text()='Network Mask']/preceding::input"));
-  			d.findElement(By.xpath("//label[text()='Network Mask']"));
-  			d.findElement(By.xpath("//label[text()='Network Mask']/following::input"));
-  			d.findElement(By.xpath("//div[text()='Cancel']"));
-  			d.findElement(By.xpath("//button[text()='Add']"));} 
+  		try{webDriver.findElement(By.xpath("//p[text()='Add IP Address Range']"));
+  			webDriver.findElement(By.xpath("//label[text()='IP Address']"));
+  			webDriver.findElement(By.xpath("//label[text()='Network Mask']/preceding::input"));
+  			webDriver.findElement(By.xpath("//label[text()='Network Mask']"));
+  			webDriver.findElement(By.xpath("//label[text()='Network Mask']/following::input"));
+  			webDriver.findElement(By.xpath("//div[text()='Cancel']"));
+  			webDriver.findElement(By.xpath("//button[text()='Add']"));} 
   		catch(NoSuchElementException e) {a=false;
   		test.fail("Content - Network range -  Pop-up is improprer / Elements are missing ");}
   		if(a==true){test.pass("Content - Network range -  Pop-up is proprer");}
-  		d.findElement(By.xpath("//div[text()='Cancel']")).click(); 
+  		webDriver.findElement(By.xpath("//div[text()='Cancel']")).click(); 
   		try {TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();}
 	}
 	
@@ -782,14 +782,14 @@ public class PhrasesNetworks extends baseClass{
 	{
   		ExtentTest test=extentreport.createTest("No IP Address Range - Icon and text check","Checking for the icon and text when no IP Address Range are added");
   		boolean a=true;
-  		d.findElement(By.xpath("//span[text()='IP Address Range']")).click();
+  		webDriver.findElement(By.xpath("//span[text()='IP Address Range']")).click();
 		try {TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();}
-  		try{d.findElement(By.xpath("//div[@class='range_ip_wrapper']/descendant::span[text()='No network added']"));
-  			d.findElement(By.xpath("//div[@class='range_ip_wrapper']/descendant::div[@class='no_data_container networks']"));}
+  		try{webDriver.findElement(By.xpath("//div[@class='range_ip_wrapper']/descendant::span[text()='No network added']"));
+  			webDriver.findElement(By.xpath("//div[@class='range_ip_wrapper']/descendant::div[@class='no_data_container networks']"));}
 		catch(NoSuchElementException e) {a=false;
 		test.fail("No Network range  - Icon and Text is improper");}
 		if(a==true){test.pass("No Network range - Icon and Text is proper");}
-		d.navigate().refresh();
+		webDriver.navigate().refresh();
 		try {TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();}
 	}
 	
@@ -798,170 +798,170 @@ public class PhrasesNetworks extends baseClass{
 	{
   		ExtentTest test=extentreport.createTest("IP Address Range - validation check","Checking the input field with multiple inputs");
   		boolean a=true;
-  		d.findElement(By.xpath("//div[@class='range_ip_wrapper']/descendant::span[text()='Add']")).click();
+  		webDriver.findElement(By.xpath("//div[@class='range_ip_wrapper']/descendant::span[text()='Add']")).click();
 		try {TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();}
 		//1.1.1.1 / 255.255.255.0
-  		d.findElement(By.xpath("//label[text()='Network Mask']/preceding::input")).sendKeys("1.1.1.1");
-  		d.findElement(By.xpath("//label[text()='Network Mask']/following::input")).sendKeys("255.255.255.0");
-  		d.findElement(By.xpath("//button[text()='Add']")).click();
+  		webDriver.findElement(By.xpath("//label[text()='Network Mask']/preceding::input")).sendKeys("1.1.1.1");
+  		webDriver.findElement(By.xpath("//label[text()='Network Mask']/following::input")).sendKeys("255.255.255.0");
+  		webDriver.findElement(By.xpath("//button[text()='Add']")).click();
 		try {TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();}
-  		d.findElement(By.xpath("//span[text()='IP Address Range']")).click();
+  		webDriver.findElement(By.xpath("//span[text()='IP Address Range']")).click();
 		try {TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();}
-  		try{d.findElement(By.xpath("//div[text()='1.1.1.1' and text()='/' and text()='255.255.255.0']"));}
+  		try{webDriver.findElement(By.xpath("//div[text()='1.1.1.1' and text()='/' and text()='255.255.255.0']"));}
   		catch(NoSuchElementException e) {a=false;
   		test.fail("Proper Network range is not added");}
   		if(a==true){test.pass("Proper Network range is added properly");}
   		//1.23.45.167 / 255.255.0.0
-  		d.findElement(By.xpath("//div[@class='range_ip_wrapper']/descendant::span[text()='Add']")).click();
+  		webDriver.findElement(By.xpath("//div[@class='range_ip_wrapper']/descendant::span[text()='Add']")).click();
 		try {TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();}
   		a=true;
-  		d.findElement(By.xpath("//label[text()='Network Mask']/preceding::input")).sendKeys("1.23.45.167");
-  		d.findElement(By.xpath("//label[text()='Network Mask']/following::input")).sendKeys("255.255.0.0");
-  		d.findElement(By.xpath("//button[text()='Add']")).click();
+  		webDriver.findElement(By.xpath("//label[text()='Network Mask']/preceding::input")).sendKeys("1.23.45.167");
+  		webDriver.findElement(By.xpath("//label[text()='Network Mask']/following::input")).sendKeys("255.255.0.0");
+  		webDriver.findElement(By.xpath("//button[text()='Add']")).click();
   		try {TimeUnit.SECONDS.sleep(3);} catch (InterruptedException e) {e.printStackTrace();}
-  		try{d.findElement(By.xpath("//div[text()='1.23.45.167' and text()='/' and text()='255.255.0.0']"));}
+  		try{webDriver.findElement(By.xpath("//div[text()='1.23.45.167' and text()='/' and text()='255.255.0.0']"));}
   		catch(NoSuchElementException e) {a=false;
   		test.fail("Proper Network range is not added");}
   		if(a==true){test.pass("Proper Network range is added properly");}
   		//a.b.c.d / 2.2.21.1
-  		d.findElement(By.xpath("//div[@class='range_ip_wrapper']/descendant::span[text()='Add']")).click();
+  		webDriver.findElement(By.xpath("//div[@class='range_ip_wrapper']/descendant::span[text()='Add']")).click();
 		try {TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();}
-  		d.findElement(By.xpath("//label[text()='Network Mask']/preceding::input")).sendKeys("a.b.c.d");
-  		d.findElement(By.xpath("//label[text()='Network Mask']/following::input")).sendKeys("2.2.21.1");
-  		d.findElement(By.xpath("//button[text()='Add']")).click();
+  		webDriver.findElement(By.xpath("//label[text()='Network Mask']/preceding::input")).sendKeys("a.b.c.d");
+  		webDriver.findElement(By.xpath("//label[text()='Network Mask']/following::input")).sendKeys("2.2.21.1");
+  		webDriver.findElement(By.xpath("//button[text()='Add']")).click();
   		a=true;
   		try {TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();}
-  		try{d.findElement(By.xpath("//label[text()='Network Mask']/preceding::span[text()='Invalid: Enter a valid value']"));}
+  		try{webDriver.findElement(By.xpath("//label[text()='Network Mask']/preceding::span[text()='Invalid: Enter a valid value']"));}
   		catch(NoSuchElementException e) {a=false;
   		test.fail("Improper Network is added");}
   		if(a==true){test.pass("Improper Network is not added");}
-  		d.findElement(By.xpath("//label[text()='Network Mask']/preceding::input")).clear();
-  		d.findElement(By.xpath("//label[text()='Network Mask']/following::input")).clear();
+  		webDriver.findElement(By.xpath("//label[text()='Network Mask']/preceding::input")).clear();
+  		webDriver.findElement(By.xpath("//label[text()='Network Mask']/following::input")).clear();
   		try {TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();}
   		//1.1.1.1 / 255.255.1.255
-  		d.findElement(By.xpath("//label[text()='Network Mask']/preceding::input")).sendKeys("1.1.1.1");
-  		d.findElement(By.xpath("//label[text()='Network Mask']/following::input")).clear();
-  		d.findElement(By.xpath("//label[text()='Network Mask']/following::input")).sendKeys("255.255.1.255");
+  		webDriver.findElement(By.xpath("//label[text()='Network Mask']/preceding::input")).sendKeys("1.1.1.1");
+  		webDriver.findElement(By.xpath("//label[text()='Network Mask']/following::input")).clear();
+  		webDriver.findElement(By.xpath("//label[text()='Network Mask']/following::input")).sendKeys("255.255.1.255");
   		try {TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();}
-  		d.findElement(By.xpath("//button[text()='Add']")).click();
+  		webDriver.findElement(By.xpath("//button[text()='Add']")).click();
   		a=true;
   		try {TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();}
-  		try{d.findElement(By.xpath("//span[text()='Mask is invalid']"));}
+  		try{webDriver.findElement(By.xpath("//span[text()='Mask is invalid']"));}
   		catch(NoSuchElementException e) {a=false;
   		test.fail("Improper Network is added");}
   		if(a==true){test.pass("Improper Network is not added properly");}
-  		d.findElement(By.xpath("//label[text()='Network Mask']/preceding::input")).clear();
-  		d.findElement(By.xpath("//label[text()='Network Mask']/following::input")).clear();
+  		webDriver.findElement(By.xpath("//label[text()='Network Mask']/preceding::input")).clear();
+  		webDriver.findElement(By.xpath("//label[text()='Network Mask']/following::input")).clear();
   		try {TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();}
   		//255.255.255.255 / 255.0.0.0
-  		d.findElement(By.xpath("//label[text()='Network Mask']/preceding::input")).sendKeys("255.255.255.255");
-  		d.findElement(By.xpath("//label[text()='Network Mask']/following::input")).clear();
-  		d.findElement(By.xpath("//label[text()='Network Mask']/following::input")).sendKeys("255.0.0.0");
-  		d.findElement(By.xpath("//button[text()='Add']")).click();
+  		webDriver.findElement(By.xpath("//label[text()='Network Mask']/preceding::input")).sendKeys("255.255.255.255");
+  		webDriver.findElement(By.xpath("//label[text()='Network Mask']/following::input")).clear();
+  		webDriver.findElement(By.xpath("//label[text()='Network Mask']/following::input")).sendKeys("255.0.0.0");
+  		webDriver.findElement(By.xpath("//button[text()='Add']")).click();
   		try {TimeUnit.SECONDS.sleep(3);} catch (InterruptedException e) {e.printStackTrace();}
-  		try{d.findElement(By.xpath("//div[text()='255.255.255.255' and text()='/' and text()='255.0.0.0']"));}
+  		try{webDriver.findElement(By.xpath("//div[text()='255.255.255.255' and text()='/' and text()='255.0.0.0']"));}
   		catch(NoSuchElementException e) {a=false;
   		test.fail("Proper Network range is not added");}
   		if(a==true){test.pass("Proper Network range is added properly");}
   		//255.255.255.256 / 255.255.255.0
-  		d.findElement(By.xpath("//div[@class='range_ip_wrapper']/descendant::span[text()='Add']")).click();
+  		webDriver.findElement(By.xpath("//div[@class='range_ip_wrapper']/descendant::span[text()='Add']")).click();
 		try {TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();}
-  		d.findElement(By.xpath("//label[text()='Network Mask']/preceding::input")).sendKeys("255.255.255.256");
-  		d.findElement(By.xpath("//label[text()='Network Mask']/following::input")).clear();
-  		d.findElement(By.xpath("//label[text()='Network Mask']/following::input")).sendKeys("255.255.255.0");
-  		d.findElement(By.xpath("//button[text()='Add']")).click();
+  		webDriver.findElement(By.xpath("//label[text()='Network Mask']/preceding::input")).sendKeys("255.255.255.256");
+  		webDriver.findElement(By.xpath("//label[text()='Network Mask']/following::input")).clear();
+  		webDriver.findElement(By.xpath("//label[text()='Network Mask']/following::input")).sendKeys("255.255.255.0");
+  		webDriver.findElement(By.xpath("//button[text()='Add']")).click();
   		a=true;
   		try {TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();}
-  		try{d.findElement(By.xpath("//label[text()='Network Mask']/preceding::span[text()='Invalid: Enter a valid value']"));}
+  		try{webDriver.findElement(By.xpath("//label[text()='Network Mask']/preceding::span[text()='Invalid: Enter a valid value']"));}
   		catch(NoSuchElementException e) {a=false;
   		test.fail("Error Message shown is not shown - Web added - Invalid Website");}
   		if(a==true){test.pass("Error Message shown is properly shown");}
-  		d.findElement(By.xpath("//label[text()='Network Mask']/preceding::input")).clear();
-  		d.findElement(By.xpath("//label[text()='Network Mask']/following::input")).clear();
+  		webDriver.findElement(By.xpath("//label[text()='Network Mask']/preceding::input")).clear();
+  		webDriver.findElement(By.xpath("//label[text()='Network Mask']/following::input")).clear();
 		try {TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();}
 		//2.5.1.256 / 255.255.255.0 
-  		d.findElement(By.xpath("//label[text()='Network Mask']/preceding::input")).sendKeys("2.5.1.256");
-  		d.findElement(By.xpath("//label[text()='Network Mask']/following::input")).clear();
-  		d.findElement(By.xpath("//label[text()='Network Mask']/following::input")).sendKeys("255.255.255.0");
-  		d.findElement(By.xpath("//button[text()='Add']")).click();
+  		webDriver.findElement(By.xpath("//label[text()='Network Mask']/preceding::input")).sendKeys("2.5.1.256");
+  		webDriver.findElement(By.xpath("//label[text()='Network Mask']/following::input")).clear();
+  		webDriver.findElement(By.xpath("//label[text()='Network Mask']/following::input")).sendKeys("255.255.255.0");
+  		webDriver.findElement(By.xpath("//button[text()='Add']")).click();
   		a=true;
   		try {TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();}
-  		try{d.findElement(By.xpath("//label[text()='Network Mask']/preceding::span[text()='Invalid: Enter a valid value']"));}
+  		try{webDriver.findElement(By.xpath("//label[text()='Network Mask']/preceding::span[text()='Invalid: Enter a valid value']"));}
   		catch(NoSuchElementException e) {a=false;
   		test.fail("Error Message shown is not shown - Web added - Invalid Website");}
   		if(a==true){test.pass("Error Message shown is properly shown");}
-  		d.findElement(By.xpath("//label[text()='Network Mask']/preceding::input")).clear();
-  		d.findElement(By.xpath("//label[text()='Network Mask']/following::input")).clear();
+  		webDriver.findElement(By.xpath("//label[text()='Network Mask']/preceding::input")).clear();
+  		webDriver.findElement(By.xpath("//label[text()='Network Mask']/following::input")).clear();
 		try {TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();}
   		//1.1.1.1 / 255.255.255.a
-  		d.findElement(By.xpath("//label[text()='Network Mask']/preceding::input")).sendKeys("1.1.1.1");
-  		d.findElement(By.xpath("//label[text()='Network Mask']/following::input")).clear();
-  		d.findElement(By.xpath("//label[text()='Network Mask']/following::input")).sendKeys("255.255.255.a");
-  		d.findElement(By.xpath("//button[text()='Add']")).click();
+  		webDriver.findElement(By.xpath("//label[text()='Network Mask']/preceding::input")).sendKeys("1.1.1.1");
+  		webDriver.findElement(By.xpath("//label[text()='Network Mask']/following::input")).clear();
+  		webDriver.findElement(By.xpath("//label[text()='Network Mask']/following::input")).sendKeys("255.255.255.a");
+  		webDriver.findElement(By.xpath("//button[text()='Add']")).click();
   		a=true;
   		try {TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();}
-  		try{d.findElement(By.xpath("//label[text()='Network Mask']/following::span[text()='Invalid: Enter a valid value']"));}
+  		try{webDriver.findElement(By.xpath("//label[text()='Network Mask']/following::span[text()='Invalid: Enter a valid value']"));}
   		catch(NoSuchElementException e) {a=false;
   		test.fail("Error Message shown is not shown - Web added - Invalid Website");}
   		if(a==true){test.pass("Error Message shown is properly shown");}
-  		d.findElement(By.xpath("//label[text()='Network Mask']/preceding::input")).clear();
-  		d.findElement(By.xpath("//label[text()='Network Mask']/following::input")).clear();
+  		webDriver.findElement(By.xpath("//label[text()='Network Mask']/preceding::input")).clear();
+  		webDriver.findElement(By.xpath("//label[text()='Network Mask']/following::input")).clear();
 		try {TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();}
   		//1.1.1.1 / 255255..255.0
-  		d.findElement(By.xpath("//label[text()='Network Mask']/preceding::input")).sendKeys("1.1.1.1");
-  		d.findElement(By.xpath("//label[text()='Network Mask']/following::input")).clear();
-  		d.findElement(By.xpath("//label[text()='Network Mask']/following::input")).sendKeys("255255..255.0");
-  		d.findElement(By.xpath("//button[text()='Add']")).click();
+  		webDriver.findElement(By.xpath("//label[text()='Network Mask']/preceding::input")).sendKeys("1.1.1.1");
+  		webDriver.findElement(By.xpath("//label[text()='Network Mask']/following::input")).clear();
+  		webDriver.findElement(By.xpath("//label[text()='Network Mask']/following::input")).sendKeys("255255..255.0");
+  		webDriver.findElement(By.xpath("//button[text()='Add']")).click();
   		a=true;
   		try {TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();}
-  		try{d.findElement(By.xpath("//label[text()='Network Mask']/following::span[text()='Invalid: Enter a valid value']"));}
+  		try{webDriver.findElement(By.xpath("//label[text()='Network Mask']/following::span[text()='Invalid: Enter a valid value']"));}
   		catch(NoSuchElementException e) {a=false;
   		test.fail("Error Message shown is not shown - Web added - Invalid Website");}
   		if(a==true){test.pass("Error Message shown is properly shown");}
-  		d.findElement(By.xpath("//label[text()='Network Mask']/preceding::input")).clear();
-  		d.findElement(By.xpath("//label[text()='Network Mask']/following::input")).clear();
+  		webDriver.findElement(By.xpath("//label[text()='Network Mask']/preceding::input")).clear();
+  		webDriver.findElement(By.xpath("//label[text()='Network Mask']/following::input")).clear();
   		//Blank space
-  		d.findElement(By.xpath("//label[text()='Network Mask']/preceding::input")).sendKeys("   ");
-  		d.findElement(By.xpath("//label[text()='Network Mask']/following::input")).clear();
-  		d.findElement(By.xpath("//label[text()='Network Mask']/following::input")).sendKeys("     ");
-  		d.findElement(By.xpath("//button[text()='Add']")).click();
+  		webDriver.findElement(By.xpath("//label[text()='Network Mask']/preceding::input")).sendKeys("   ");
+  		webDriver.findElement(By.xpath("//label[text()='Network Mask']/following::input")).clear();
+  		webDriver.findElement(By.xpath("//label[text()='Network Mask']/following::input")).sendKeys("     ");
+  		webDriver.findElement(By.xpath("//button[text()='Add']")).click();
   		a=true;
   		try {TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();}   
-  		try{d.findElement(By.xpath("//label[text()='Network Mask']/following::span[text()='Required Field']"));
-  			d.findElement(By.xpath("//label[text()='Network Mask']/preceding::span[text()='Required Field']"));}
+  		try{webDriver.findElement(By.xpath("//label[text()='Network Mask']/following::span[text()='Required Field']"));
+  			webDriver.findElement(By.xpath("//label[text()='Network Mask']/preceding::span[text()='Required Field']"));}
   		catch(NoSuchElementException e) {a=false;
   		test.fail("Improper format is added");}
   		if(a==true){test.pass("Improper format is not added - asking required field");}
-  		d.findElement(By.xpath("//label[text()='Network Mask']/following::input")).clear();
-  		d.findElement(By.xpath("//label[text()='Network Mask']/preceding::input")).clear();
+  		webDriver.findElement(By.xpath("//label[text()='Network Mask']/following::input")).clear();
+  		webDriver.findElement(By.xpath("//label[text()='Network Mask']/preceding::input")).clear();
 		try {TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();}
   		//255.255.255.1 / 255.255.255.0
-  		d.findElement(By.xpath("//label[text()='Network Mask']/preceding::input")).sendKeys("255.255.255.1");
-  		d.findElement(By.xpath("//label[text()='Network Mask']/following::input")).clear();
-  		d.findElement(By.xpath("//label[text()='Network Mask']/following::input")).sendKeys("255.255.255.0");
-  		d.findElement(By.xpath("//button[text()='Add']")).click();
+  		webDriver.findElement(By.xpath("//label[text()='Network Mask']/preceding::input")).sendKeys("255.255.255.1");
+  		webDriver.findElement(By.xpath("//label[text()='Network Mask']/following::input")).clear();
+  		webDriver.findElement(By.xpath("//label[text()='Network Mask']/following::input")).sendKeys("255.255.255.0");
+  		webDriver.findElement(By.xpath("//button[text()='Add']")).click();
   		try {TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();}
   		//1.2.3.45 / 255.255.255.0
-  		d.findElement(By.xpath("//div[@class='range_ip_wrapper']/descendant::span[text()='Add']")).click();
+  		webDriver.findElement(By.xpath("//div[@class='range_ip_wrapper']/descendant::span[text()='Add']")).click();
 		try {TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();}
-  		d.findElement(By.xpath("//label[text()='Network Mask']/preceding::input")).sendKeys("1.2.3.45");
-  		d.findElement(By.xpath("//label[text()='Network Mask']/following::input")).clear();
-  		d.findElement(By.xpath("//label[text()='Network Mask']/following::input")).sendKeys("255.255.255.0");
-  		d.findElement(By.xpath("//button[text()='Add']")).click();
+  		webDriver.findElement(By.xpath("//label[text()='Network Mask']/preceding::input")).sendKeys("1.2.3.45");
+  		webDriver.findElement(By.xpath("//label[text()='Network Mask']/following::input")).clear();
+  		webDriver.findElement(By.xpath("//label[text()='Network Mask']/following::input")).sendKeys("255.255.255.0");
+  		webDriver.findElement(By.xpath("//button[text()='Add']")).click();
   		try {TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();}
   		//54.231.55.98 / 255.0.0.0
-  		d.findElement(By.xpath("//div[@class='range_ip_wrapper']/descendant::span[text()='Add']")).click();
+  		webDriver.findElement(By.xpath("//div[@class='range_ip_wrapper']/descendant::span[text()='Add']")).click();
 		try {TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();}
-  		d.findElement(By.xpath("//label[text()='Network Mask']/preceding::input")).sendKeys("54.231.55.98");
-  		d.findElement(By.xpath("//label[text()='Network Mask']/following::input")).clear();
-  		d.findElement(By.xpath("//label[text()='Network Mask']/following::input")).sendKeys("255.0.0.0");
-  		d.findElement(By.xpath("//button[text()='Add']")).click();
+  		webDriver.findElement(By.xpath("//label[text()='Network Mask']/preceding::input")).sendKeys("54.231.55.98");
+  		webDriver.findElement(By.xpath("//label[text()='Network Mask']/following::input")).clear();
+  		webDriver.findElement(By.xpath("//label[text()='Network Mask']/following::input")).sendKeys("255.0.0.0");
+  		webDriver.findElement(By.xpath("//button[text()='Add']")).click();
   		try {TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();} 
   		//Checking other three entered details
   		a=true;
-  		try{d.findElement(By.xpath("//div[text()='255.255.255.1' and text()='/' and text()='255.255.255.0']"));
-  			d.findElement(By.xpath("//div[text()='1.2.3.45' and text()='/' and text()='255.255.255.0']"));
-  			d.findElement(By.xpath("//div[text()='54.231.55.98' and text()='/' and text()='255.0.0.0']"));}
+  		try{webDriver.findElement(By.xpath("//div[text()='255.255.255.1' and text()='/' and text()='255.255.255.0']"));
+  			webDriver.findElement(By.xpath("//div[text()='1.2.3.45' and text()='/' and text()='255.255.255.0']"));
+  			webDriver.findElement(By.xpath("//div[text()='54.231.55.98' and text()='/' and text()='255.0.0.0']"));}
   		catch(NoSuchElementException e) {a=false;
   		test.fail("Networks are not added properly");}
   		if(a==true){test.pass("Networks are added properly");}
@@ -972,17 +972,17 @@ public class PhrasesNetworks extends baseClass{
 	{
   		ExtentTest test=extentreport.createTest("IP Address Range -  Duplicate IP Address Range check","Checking if able to add a  IP Address Range  that is already added");
   		boolean a=true;
-  		d.findElement(By.xpath("//div[@class='range_ip_wrapper']/descendant::span[text()='Add']")).click();
+  		webDriver.findElement(By.xpath("//div[@class='range_ip_wrapper']/descendant::span[text()='Add']")).click();
 		try {TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();}
-  		d.findElement(By.xpath("//label[text()='Network Mask']/preceding::input")).sendKeys("54.231.55.98");
-  		d.findElement(By.xpath("//label[text()='Network Mask']/following::input")).sendKeys("255.0.0.0");
-  		d.findElement(By.xpath("//button[text()='Add']")).click();
+  		webDriver.findElement(By.xpath("//label[text()='Network Mask']/preceding::input")).sendKeys("54.231.55.98");
+  		webDriver.findElement(By.xpath("//label[text()='Network Mask']/following::input")).sendKeys("255.0.0.0");
+  		webDriver.findElement(By.xpath("//button[text()='Add']")).click();
   		try {TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();} 
-  		try{d.findElement(By.xpath("//span[text()='IP address already there']"));}
+  		try{webDriver.findElement(By.xpath("//span[text()='IP address already there']"));}
 		catch(NoSuchElementException e) {a=false;
 		test.fail("Duplicate network is added");}
 		if(a==true){test.pass("Duplicate network is not added. Properly alert message is shown");}
-  		d.findElement(By.xpath("//div[text()='Cancel']")).click();
+  		webDriver.findElement(By.xpath("//div[text()='Cancel']")).click();
 		try {TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();}
    	}
   		
@@ -991,18 +991,18 @@ public class PhrasesNetworks extends baseClass{
  	{
    		ExtentTest test=extentreport.createTest("IP Address Range - Go back and visit again","Checking if the changes are retained when visited again");
    		boolean a=true;
-   		d.findElement(By.xpath("//span[@id='headerBack']")).click();
+   		webDriver.findElement(By.xpath("//span[@id='headerBack']")).click();
 		try {TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();}		
-		JavascriptExecutor j = (JavascriptExecutor)d;
+		JavascriptExecutor j = (JavascriptExecutor)webDriver;
 		j.executeScript("window.scrollBy(0,500)");
 		try {TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();}		
-  		d.findElement(By.xpath("//span[text()='Networks']")).click();
+  		webDriver.findElement(By.xpath("//span[text()='Networks']")).click();
 		try {TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();}		
-		d.findElement(By.xpath("//span[text()='IP Address Range']")).click();
+		webDriver.findElement(By.xpath("//span[text()='IP Address Range']")).click();
 		try {TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();}
-		try{d.findElement(By.xpath("//div[text()='255.255.255.1' and text()='/' and text()='255.255.255.0']"));
-			d.findElement(By.xpath("//div[text()='1.2.3.45' and text()='/' and text()='255.255.255.0']"));
-			d.findElement(By.xpath("//div[text()='54.231.55.98' and text()='/' and text()='255.0.0.0']"));} 
+		try{webDriver.findElement(By.xpath("//div[text()='255.255.255.1' and text()='/' and text()='255.255.255.0']"));
+			webDriver.findElement(By.xpath("//div[text()='1.2.3.45' and text()='/' and text()='255.255.255.0']"));
+			webDriver.findElement(By.xpath("//div[text()='54.231.55.98' and text()='/' and text()='255.0.0.0']"));} 
 		catch(NoSuchElementException e) {a=false;
 		test.fail("The changes are not retained when visited again");}
 		if(a==true){test.pass("The changes are retained when visited again");}
@@ -1015,18 +1015,18 @@ public class PhrasesNetworks extends baseClass{
   		boolean a=true;
   		//delete one network
   		try {TimeUnit.SECONDS.sleep(1);} catch (InterruptedException e) {e.printStackTrace();}
-  		d.findElement(By.xpath("//div[text()='54.231.55.98' and text()='/' and text()='255.0.0.0']/preceding::label[@class='check_box'][1]")).click();
+  		webDriver.findElement(By.xpath("//div[text()='54.231.55.98' and text()='/' and text()='255.0.0.0']/preceding::label[@class='check_box'][1]")).click();
   		try {TimeUnit.SECONDS.sleep(1);} catch (InterruptedException e) {e.printStackTrace();}
-  		try{d.findElement(By.xpath("//span[text()='1' and text()='range' and text()=' selected']"));
-  			d.findElement(By.xpath("//span[text()='Delete selected']"));} 
+  		try{webDriver.findElement(By.xpath("//span[text()='1' and text()='range' and text()=' selected']"));
+  			webDriver.findElement(By.xpath("//span[text()='Delete selected']"));} 
   		catch(NoSuchElementException e) {a=false;
   		test.fail("One IP Address Range selected - not displayed properly");}
   		if(a==true){test.pass("One IP Address Range selected - displayed properly");}
   		
   		a=true;
-  		d.findElement(By.xpath("//span[text()='Delete selected']")).click();
+  		webDriver.findElement(By.xpath("//span[text()='Delete selected']")).click();
   		try {TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();}
-		try{d.findElement(By.xpath("//div[text()='54.231.55.98' and text()='/' and text()='255.0.0.0']"));} 
+		try{webDriver.findElement(By.xpath("//div[text()='54.231.55.98' and text()='/' and text()='255.0.0.0']"));} 
 		catch(NoSuchElementException e) {a=false;
 		test.pass("One IP Address Range delete - deleted properly");}
 		if(a==true){test.fail("One IP Address Range delete not deleted properly");}
@@ -1034,50 +1034,50 @@ public class PhrasesNetworks extends baseClass{
   		//Delete more than one network
 		a=true;
   		try {TimeUnit.SECONDS.sleep(1);} catch (InterruptedException e) {e.printStackTrace();}
-  		d.findElement(By.xpath("//div[text()='1.2.3.45' and text()='/' and text()='255.255.255.0']/preceding::label[@class='check_box'][1]")).click();
-  		d.findElement(By.xpath("//div[text()='255.255.255.1' and text()='/' and text()='255.255.255.0']/preceding::label[@class='check_box'][1]")).click();
+  		webDriver.findElement(By.xpath("//div[text()='1.2.3.45' and text()='/' and text()='255.255.255.0']/preceding::label[@class='check_box'][1]")).click();
+  		webDriver.findElement(By.xpath("//div[text()='255.255.255.1' and text()='/' and text()='255.255.255.0']/preceding::label[@class='check_box'][1]")).click();
   		try {TimeUnit.SECONDS.sleep(1);} catch (InterruptedException e) {e.printStackTrace();}
-  		try{d.findElement(By.xpath("//span[text()='2' and text()='ranges' and text()=' selected']"));
-  			d.findElement(By.xpath("//span[text()='Delete selected']"));}
+  		try{webDriver.findElement(By.xpath("//span[text()='2' and text()='ranges' and text()=' selected']"));
+  			webDriver.findElement(By.xpath("//span[text()='Delete selected']"));}
   		catch(NoSuchElementException e) {a=false;
   		test.fail("More than One IP address Range selected - not displayed properly");}
   		if(a==true){test.pass("More than One IP address Range selected - displayed properly");}
   		
   		a=true;
-  		d.findElement(By.xpath("//span[text()='Delete selected']")).click();
+  		webDriver.findElement(By.xpath("//span[text()='Delete selected']")).click();
 		try {TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();}
-		try{d.findElement(By.xpath("//div[text()='1.2.3.45' and text()='/' and text()='255.255.255.0']"));
-			d.findElement(By.xpath("//div[text()='255.255.255.1' and text()='/' and text()='255.255.255.0']"));} 
+		try{webDriver.findElement(By.xpath("//div[text()='1.2.3.45' and text()='/' and text()='255.255.255.0']"));
+			webDriver.findElement(By.xpath("//div[text()='255.255.255.1' and text()='/' and text()='255.255.255.0']"));} 
 		catch(NoSuchElementException e) {a=false;
 		test.pass("More than One IP address Range Delete - deleted properly");}
 		if(a==true){test.fail("More than One IP address Range Delete not deleted properly");}
 		
 		//Delete All websites
 		a=true;
-  		d.findElement(By.xpath("//div[text()='1.1.1.1' and text()='/' and text()='255.255.255.0']/preceding::label[@class='check_box'][1]")).click();
+  		webDriver.findElement(By.xpath("//div[text()='1.1.1.1' and text()='/' and text()='255.255.255.0']/preceding::label[@class='check_box'][1]")).click();
   		try {TimeUnit.SECONDS.sleep(1);} catch (InterruptedException e) {e.printStackTrace();}
-  		d.findElement(By.xpath("//label[@for='all_range_boxes_checked']")).click();
+  		webDriver.findElement(By.xpath("//label[@for='all_range_boxes_checked']")).click();
   		try {TimeUnit.SECONDS.sleep(1);} catch (InterruptedException e) {e.printStackTrace();}
-  		try{d.findElement(By.xpath("//span[text()='3' and text()='ranges' and text()=' selected']"));
-			d.findElement(By.xpath("//span[text()='Delete selected']"));}
+  		try{webDriver.findElement(By.xpath("//span[text()='3' and text()='ranges' and text()=' selected']"));
+			webDriver.findElement(By.xpath("//span[text()='Delete selected']"));}
   		catch(NoSuchElementException e) {a=false;
   		test.fail("All IP address Range selected - not displayed properly");}
   		if(a==true){test.pass("All IP address Range selected - displayed properly");}
   		
   		a=true;
-  		d.findElement(By.xpath("//span[text()='Delete selected']")).click();
+  		webDriver.findElement(By.xpath("//span[text()='Delete selected']")).click();
 		try {TimeUnit.SECONDS.sleep(2);} catch (InterruptedException e) {e.printStackTrace();}		
 		a=true;
-		try{d.findElement(By.xpath("//div[text()='1.1.1.1' and text()='/' and text()='255.255.255.0']"));} 
+		try{webDriver.findElement(By.xpath("//div[text()='1.1.1.1' and text()='/' and text()='255.255.255.0']"));} 
 		catch(NoSuchElementException e) {a=false;
 		test.pass("All phrases Delete - deleted properly");}
 		if(a==true){test.fail("All phrases Delete not deleted properly");}
-		d.findElement(By.xpath("//span[text()='Single IP address']")).click();
+		webDriver.findElement(By.xpath("//span[text()='Single IP address']")).click();
   		try {TimeUnit.SECONDS.sleep(3);} catch (InterruptedException e) {e.printStackTrace();}
   		
 		// redirect to dashboard
 		try {TimeUnit.SECONDS.sleep(3);} catch (InterruptedException e) {e.printStackTrace();}
-		d.findElement(By.xpath("//a[@class='logo']")).click();
+		webDriver.findElement(By.xpath("//a[@class='logo']")).click();
 		try {TimeUnit.SECONDS.sleep(3);} catch (InterruptedException e) {e.printStackTrace();}
 	}
 			
@@ -1085,6 +1085,6 @@ public class PhrasesNetworks extends baseClass{
 	public void teardown()
     {
     	extentreport.flush();
-//    	d.quit();
+//    	webDriver.quit();
     }
 }

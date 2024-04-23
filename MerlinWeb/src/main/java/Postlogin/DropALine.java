@@ -30,7 +30,7 @@ public class DropALine{
     public void beforeTest() 
     {
 		extentreport = new ExtentReports();
-		spark = new ExtentSparkReporter("D:\\TestReports\\TestDropUsALine\\reportDropUsALine.html");
+		spark = new ExtentSparkReporter("TestReports\\PostloginTest\\TestDropUsALine\\reportDropUsALine.html");
 		extentreport.attachReporter(spark);
     }
 	
