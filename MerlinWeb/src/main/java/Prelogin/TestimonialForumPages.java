@@ -1,81 +1,75 @@
 package Prelogin;
 
+import org.testng.annotations.Test;
 import org.testng.annotations.BeforeClass;
 import org.testng.Assert;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.Test;
 import org.testng.annotations.BeforeClass;
 import org.testng.AssertJUnit;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
 import org.testng.annotations.BeforeClass;
 import org.testng.Assert;
-import java.util.Properties;
-import javax.mail.*;
-import javax.mail.internet.*;
-import javax.activation.*;
 
-import java.io.FileNotFoundException;
+import java.io.File;
 import java.time.Duration;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 import java.util.concurrent.TimeUnit;
-
-import javax.activation.DataHandler;
-import javax.activation.DataSource;
-import javax.activation.FileDataSource;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeBodyPart;
-import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMultipart;
-
-//import org.apache.commons.mail.EmailAttachment;
-//import org.apache.commons.mail.EmailException;
-//import org.apache.commons.mail.MultiPartEmail;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.annotations.AfterSuite;
-import org.testng.annotations.AfterTest;
-
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
+import com.itextpdf.html2pdf.HtmlConverter;
+import java.io.File;
+import java.io.FileOutputStream;
 
-public class TestimonialForumPages extends BrowserSetupClass {
+public class AboutPartnerPages extends BrowserSetupClass {
 
+	// Report setup
 	/*
-	 * //Report setup ExtentReports extentreport; ExtentSparkReporter spark ;
+	 * ExtentReports extentreport; ExtentSparkReporter spark ;
 	 * 
 	 * @BeforeClass public void beforeTest() { extentreport = new ExtentReports();
 	 * spark = new ExtentSparkReporter(
-	 * "TestReports\\PreLoginTest\\TestimonialsForum\\TestimonialForumPagesReport.html"
+	 * "TestReports\\PreLoginTest\\AboutPartnerPagesTest\\AboutPartnerPagesReport.html"
 	 * ); extentreport.attachReporter(spark); }
 	 */
-
 	@Test(priority = 1)
-	public void a1_testimonialPage() throws InterruptedException {
-		ExtentTest test = extentreport.createTest("Testimonial page",
-				"To check the Prelogin Testimonial web page title,header");
+	public void a1_aboutPage() throws InterruptedException {
+		ExtentTest test = extentreport.createTest("About page", "To check the Prelogin About web page title,header");
 		extentTest.set(test);
 		new WebDriverWait(webDriver, Duration.ofSeconds(20)).until(ExpectedConditions
 				.visibilityOfElementLocated(By.xpath("//div[@class='main_container home_index_component']")));
-		new WebDriverWait(webDriver, Duration.ofSeconds(20)).until(ExpectedConditions
-				.visibilityOfElementLocated(By.xpath("//a[text()='Testimonials' and @class='header_nav_anchor']")));
-		webDriver.findElement(By.xpath("//a[text()='Testimonials' and @class='header_nav_anchor']")).click();
+
+		WebElement l = webDriver.findElement(By.xpath("//ul[@class='footer_ul']//a[text()='About']"));
+		// Javascript executor
+		((JavascriptExecutor) webDriver).executeScript("arguments[0].scrollIntoView(true);", l);
+		TimeUnit.SECONDS.sleep(2);
+		new WebDriverWait(webDriver, Duration.ofSeconds(20)).until(
+				ExpectedConditions.visibilityOfElementLocated(By.xpath("//ul[@class='footer_ul']//a[text()='About']")));
+		webDriver.findElement(By.xpath("//ul[@class='footer_ul']//a[text()='About']")).click();
 		new WebDriverWait(webDriver, Duration.ofSeconds(20))
-				.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[@class='testimonial_title']")));
+				.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h1[text()='About Mobicip']")));
 
 		// page title
 		String tit = webDriver.getTitle();
 		System.out.println(tit);
 		tit = webDriver.getTitle();
-		if (tit.equals("Mobicip Parental Control Reviews | Mobicip")) {
-			test.pass("Testimonial Page title is correct");
+		if (tit.equals("About Us | Mobicip")) {
+			test.pass("About Page title is correct");
 		} else {
-			Assert.fail("Testimonial Page title isn't correct");
+			Assert.fail("About Page title isn't correct");
 		}
 
 		// Header Elements
@@ -90,263 +84,171 @@ public class TestimonialForumPages extends BrowserSetupClass {
 			webDriver.findElement(By.xpath("//*[text()='Start Free Trial']"));
 		} catch (NoSuchElementException e) {
 			a = false;
-			Assert.fail("Pre login Testimonial page - Header is incorrect");
+			Assert.fail("Pre login About page - Header is incorrect");
 		}
 		if (a == true) {
-			test.pass("Pre login Testimonial page - Header is correct");
+			test.pass("Pre login About page - Header is correct");
 		}
 	}
 
 	@Test(priority = 2)
 	public void a2_section1() throws InterruptedException {
-		ExtentTest test1 = extentreport.createTest("section 1", "To check the Prelogin Testimonial web page section 1");
+		ExtentTest test1 = extentreport.createTest("section 1", "To check the Prelogin About web page section 1");
 		extentTest.set(test1);
-		TimeUnit.SECONDS.sleep(5);
-
 		boolean a = true;
 		try {
-			webDriver.findElement(By.xpath("//p[text()='What Parents Are Saying About Mobicip']"));
+			webDriver.findElement(By.xpath("//*[text()='About Mobicip']"));
 		} catch (NoSuchElementException e) {
 			a = false;
-			Assert.fail("Section 1 title is not shown");
+			Assert.fail("Section title is not correct");
 		}
 		if (a == true) {
-			test1.pass("Section 1 title is shown");
+			test1.pass("Section title is correct");
+		}
+
+		String p = webDriver.findElement(By.xpath("//p[@class='banner_text']")).getText();
+		if (p.equals(
+				"Mobicip (pronounced mo-be-sip) is named after mobile CIPA. CIPA stands for Children's Internet Protection Act, a regulation by the US government that mandates secure internet access when provided by public schools or libraries. In the dark days before smartphones and tablets, the founders had a vision that learning is going to be transformed by ubiquitous always-on mobile technology in the hands of K-12 students. And so Mobicip was born, with a mission to create and foster the safe use of technology for learning and enrichment. A few million downloads, ten years, and petabytes of usage later, we believe the vision has come full circle as the world as we know it, and not just education, has been transformed.")) {
+			test1.pass("Description text correct");
+		} else {
+			Assert.fail("Description text not correct");
 		}
 
 		a = true;
 		try {
-			webDriver.findElement(By.xpath("//div[@class='screentime_video_container']"));
+			webDriver.findElement(By.xpath("//div[@class='about_image']/picture"));
 		} catch (NoSuchElementException e) {
 			a = false;
-			Assert.fail("Youtube video is not shown");
+			Assert.fail("Banner Image not present");
 		}
 		if (a == true) {
-			test1.pass("Youtube video is shown");
-		}
-
-		JavascriptExecutor j = (JavascriptExecutor) webDriver;
-		j.executeScript("window.scrollBy(0,500)");
-		TimeUnit.SECONDS.sleep(3);
-
-		a = true;
-		try {
-			webDriver.findElement(By.xpath("//div[@class='featured_on_container']"));
-			webDriver.findElement(By.xpath("//p[text()='Featured on']"));
-			webDriver.findElement(By.xpath(
-					"//img[@data-src='https://www.mobicip.com/assets/content/testimonial/logo1-d37079ebdfb5ea3a266a652b9b1dc22eba011cec7bf2258a41765660dacc6e3d.png']"));
-			webDriver.findElement(By.xpath(
-					"//img[@data-src='https://www.mobicip.com/assets/content/testimonial/logo2-4078e7468f93f8f7e83a61810b84a61c7bdddb1510010e3a3ac3dc78e280daa6.png']"));
-			webDriver.findElement(By.xpath(
-					"//img[@data-src='https://www.mobicip.com/assets/content/testimonial/logo3-3a8008eaefde68b43198adae9eedf702202d563ec588d1cb00b3f697a70f0f58.png']"));
-			webDriver.findElement(By.xpath(
-					"//img[@data-src='https://www.mobicip.com/assets/content/testimonial/logo4-ce45078b349de73060d1ea9dda250372466a8d0c457a09acb3733fca01ba95cf.png']"));
-			webDriver.findElement(By.xpath(
-					"//img[@data-src='https://www.mobicip.com/assets/content/testimonial/logo5-8a00ee24558c9223b39f910c01be03f727912279eee612b60d822ee10416e966.png']"));
-			webDriver.findElement(By.xpath(
-					"//img[@data-src='https://www.mobicip.com/assets/content/testimonial/logo6-e50bed609b570ccaa6a34837ef3dfa5c412521359550fc4003f763e2205416f6.png']"));
-			webDriver.findElement(By.xpath(
-					"//img[@data-src='https://www.mobicip.com/assets/content/testimonial/logo7-cecb3b9b2d32b7b626670564a726cf752a576c371a756bb825f5c657bae6f82b.png']"));
-			webDriver.findElement(By.xpath(
-					"//img[@data-src='https://www.mobicip.com/assets/content/testimonial/logo8-503f87ed0656220611e97564180a81c5c909d158f3a98bb1d6cb9adcab422249.png']"));
-		} catch (NoSuchElementException e) {
-			a = false;
-			Assert.fail("Featured on section is not shown");
-		}
-		if (a == true) {
-			test1.pass("Featured on section is not shown");
+			test1.pass("Banner Image present");
 		}
 	}
 
 	@Test(priority = 3)
 	public void a3_section2() throws InterruptedException {
-		ExtentTest test2 = extentreport.createTest("section 2", "To check the Prelogin Testimonial web page section 2");
+		ExtentTest test2 = extentreport.createTest("section 2", "To check the Prelogin About web page section 2");
 		extentTest.set(test2);
 		JavascriptExecutor j = (JavascriptExecutor) webDriver;
-		j.executeScript("window.scrollBy(0,200)");
-		TimeUnit.SECONDS.sleep(3);
+		j.executeScript("window.scrollBy(0,550)");
+		TimeUnit.SECONDS.sleep(5);
 
 		boolean a = true;
 		try {
-			webDriver.findElement(By.xpath("//section[@class='content_section']"));
+			webDriver.findElement(By.xpath("//div[@class='locations_wrapper']/div[1]/div"));
 		} catch (NoSuchElementException e) {
 			a = false;
-			Assert.fail("Section 2 is not present");
+			Assert.fail("California Image not present");
 		}
 		if (a == true) {
-			test2.pass("Section 2 is present");
+			test2.pass("California Image present");
 		}
 
-		a = true;
-		try {
-			webDriver.findElement(By.xpath(
-					"//p[text()='Over 2 million parents trust Mobicip to protect their kids online and develop healthy digital habits.']"));
-		} catch (NoSuchElementException e) {
-			a = false;
-			Assert.fail("Section 2 description is not present");
-		}
-		if (a == true) {
-			test2.pass("Section 2 description is present");
+		String p = webDriver.findElement(By.xpath("//div[@class='locations_wrapper']/div[1]/p[1]")).getText();
+		if (p.equals("USA - California")) {
+			test2.pass("Address title correct");
+		} else {
+			Assert.fail("Address title not correct");
 		}
 
-		a = true;
-		try {
-			webDriver.findElement(By.xpath("//a[@class='primary_button']"));
-		} catch (NoSuchElementException e) {
-			a = false;
-			Assert.fail("Start Free Trial button is not shown");
-		}
-		if (a == true) {
-			test2.pass("Start Free Trial button is shown");
-		}
-
-		a = true;
-		try {
-			webDriver.findElement(By.xpath("//p[@class='review_msg review_msg_main']"));
-			webDriver.findElement(By.xpath("//span[text()='Ivan']"));
-			webDriver.findElement(By.xpath("//span[text()='Zoe']"));
-			webDriver.findElement(By.xpath("//span[text()='Robinson']"));
-			webDriver.findElement(By.xpath("//span[text()='Nancy']"));
-		} catch (NoSuchElementException e) {
-			a = false;
-			Assert.fail("Customer review Set 1 is not present");
-		}
-		if (a == true) {
-			test2.pass("Customer review Set 1 is present");
-		}
-
-		JavascriptExecutor j1 = (JavascriptExecutor) webDriver;
-		j1.executeScript("window.scrollBy(0,1500)");
-		TimeUnit.SECONDS.sleep(3);
-
-		webDriver.findElement(By.xpath("//span[@aria-label='Go to slide 2']")).click();
-		try {
-			webDriver.findElement(By.xpath("//span[text()='Fred']"));
-			webDriver.findElement(By.xpath("//span[text()='Sandy']"));
-			webDriver.findElement(By.xpath("//span[text()='Diane']"));
-			webDriver.findElement(By.xpath("//span[text()='James']"));
-		} catch (NoSuchElementException e) {
-			a = false;
-			Assert.fail("Customer review Set 2 is not present");
-		}
-		if (a == true) {
-			test2.pass("Customer review Set 2 is present");
-		}
-
-		webDriver.findElement(By.xpath("//span[@aria-label='Go to slide 3']")).click();
-
-		try {
-			webDriver.findElement(By.xpath("//span[text()='Kevin']"));
-			webDriver.findElement(By.xpath("//span[text()='Clara']"));
-			webDriver.findElement(By.xpath("//span[text()='Kim']"));
-			webDriver.findElement(By.xpath("//span[text()='Jacqueline']"));
-		} catch (NoSuchElementException e) {
-			a = false;
-			Assert.fail("Customer review Set 3 is not present");
-		}
-		if (a == true) {
-			test2.pass("Customer review Set 3 is present");
-
+		String p1 = webDriver.findElement(By.xpath("//div[@class='locations_wrapper']/div[1]/p[2]")).getText();
+		if (p1.equals("USA - California 501-1, S Reino Rd. Ste 212, Newbury Park, CA 91320")) {
+			test2.pass("Address text correct");
+		} else {
+			Assert.fail("Address text not correct");
 		}
 
 	}
 
 	@Test(priority = 4)
 	public void a4_section3() throws InterruptedException {
-		ExtentTest test3 = extentreport.createTest("section 3,4",
-				"To check the Prelogin Testimonial web page section 3,4");
+		ExtentTest test3 = extentreport.createTest("section 3", "To check the Prelogin About web page section 3");
 		extentTest.set(test3);
-		boolean a = true;
-		try {
-			webDriver.findElement(By.xpath("//section[@class='content_section lightblue']"));
-		} catch (NoSuchElementException e) {
-			a = false;
-			Assert.fail("Section 3 is not present");
-		}
-		if (a == true) {
-			test3.pass("Section 3 is present");
-		}
-
-		a = true;
-		try {
-			webDriver.findElement(By.xpath("//p[text()='Begin Your Digital Parenting Journey With Mobicip Today']"));
-		} catch (NoSuchElementException e) {
-			a = false;
-			Assert.fail("Section 3 Description is not Present");
-		}
-		if (a == true) {
-			test3.pass("Section 3 Description is Present");
-		}
-
-		a = true;
-		try {
-			webDriver.findElement(By.xpath("//h1[text()='Mobicip Pricing']"));
-			webDriver.findElement(By.xpath("//h3[@class='content_subtitle']"));
-			webDriver.findElement(By.xpath("//h4[@class='content_description']"));
-		} catch (NoSuchElementException e) {
-			a = false;
-			Assert.fail("Section 3 title and subtitle are not Present");
-		}
-		if (a == true) {
-			test3.pass("Section 3 title and subtitle are Present");
-		}
-
-		a = true;
-		try {
-			webDriver.findElement(By.xpath("//div[@class='pricing_quote_wrapper']"));
-			webDriver.findElement(By.xpath("//div[@class='pricing_quote_img']"));
-			webDriver.findElement(By.xpath("//p[@class='quote_msg']"));
-			webDriver.findElement(By.xpath("//a[@class='quote_link']"));
-		} catch (NoSuchElementException e) {
-			a = false;
-			Assert.fail("Pricing Quote section is not Present");
-		}
-		if (a == true) {
-			test3.pass("Pricing Quote section is Present");
-		}
-
-		a = true;
-		try {
-			webDriver.findElement(By.xpath("//ul[@class='pricing_section_image_wrapper']"));
-		} catch (NoSuchElementException e) {
-			a = false;
-			Assert.fail("Product specifications are not provided");
-		}
-		if (a == true) {
-			test3.pass("Product specifications are provided");
-		}
-
-		a = true;
-		try {
-			webDriver.findElement(By.xpath("//div[@class='content_section darkblue']"));
-		} catch (NoSuchElementException e) {
-			a = false;
-			Assert.fail("Products features are not provided");
-		}
-		if (a == true) {
-			test3.pass("Product features are provided");
-		}
-
-	}
-
-	@Test(priority = 5)
-	public void a5_section5() throws InterruptedException {
-		ExtentTest test4 = extentreport.createTest("section 5",
-				"To check the Prelogin Testimonials web page section 5");
-		extentTest.set(test4);
 		JavascriptExecutor j = (JavascriptExecutor) webDriver;
 		j.executeScript("window.scrollBy(0,500)");
 		TimeUnit.SECONDS.sleep(2);
 
+		String p = webDriver.findElement(By.xpath("//div[@class='about_list_wrapper']/div[1]/h2")).getText();
+		if (p.equals("Culture")) {
+			test3.pass("Culture title correct");
+		} else {
+			Assert.fail("Culture title not correct");
+		}
+
+		String p1 = webDriver.findElement(By.xpath("//div[@class='about_list_wrapper']/div[1]/p")).getText();
+		if (p1.equals(
+				"The team culture is collegial and the organization is flat. There are no bosses per se, but every individual is expected to think and act like a boss, managing himself or herself. Nearly half the team is comprised of women, and flexi-schedules and work-life balance are enforced with missionary zeal. At the end of the day, who wouldn't want to work with smart people in a challenging culture that values what you do.")) {
+			test3.pass("Culture Description correct");
+		} else {
+			Assert.fail("Culture Description not correct");
+		}
+
+		String p2 = webDriver.findElement(By.xpath("//div[@class='about_list_wrapper']/div[2]/h2")).getText();
+		if (p2.equals("Careers")) {
+			test3.pass("Careers title correct");
+		} else {
+			Assert.fail("Careers title not correct");
+		}
+
+		String p22 = webDriver.findElement(By.xpath("//div[@class='about_list_wrapper']/div[2]/p")).getText();
+		if (p22.equals(
+				"Consider yourself a smart cookie? A code warrior who loves programming and hacks away into the night? This might be the right place for geeks seeking glory. Contact us and let us know what drives you.")) {
+			test3.pass("Careers Description correct");
+		} else {
+			Assert.fail("Careers Description not correct");
+		}
+
 		boolean a = true;
+		try {
+			webDriver.findElement(By.xpath("//div[@class='about_list_wrapper']/div[2]/p/a")).click();
+		} catch (NoSuchElementException e) {
+			a = false;
+			Assert.fail("Contact us link redirects failed");
+		}
+		if (a == true) {
+			test3.pass("Contact us link works fine");
+		}
+		TimeUnit.SECONDS.sleep(2);
+		webDriver.navigate().back();
+		TimeUnit.SECONDS.sleep(2);
+
+	}
+
+	@Test(priority = 5)
+	public void a5_section4() throws InterruptedException {
+		ExtentTest test4 = extentreport.createTest("section 4,5", "To check the Prelogin About web page section 4,5");
+		extentTest.set(test4);
+		JavascriptExecutor j = (JavascriptExecutor) webDriver;
+		j.executeScript("window.scrollBy(0,400)");
+		TimeUnit.SECONDS.sleep(2);
+
+		boolean a = true;
+		try {
+			webDriver.findElement(By.xpath("//h2[text()='Build Better Digital Habits With Mobicip']"));
+			webDriver.findElement(By.xpath("//ul[@class='footer_feature_ul']"));
+			webDriver.findElement(By.xpath("//a[@class='primary_button sign_up']"));
+		} catch (NoSuchElementException e) {
+			a = false;
+			Assert.fail("About page - Build better is not present");
+		}
+		if (a == true) {
+			test4.pass("About page - Build better is present");
+		}
+
+		JavascriptExecutor j1 = (JavascriptExecutor) webDriver;
+		j1.executeScript("window.scrollBy(0,500)");
+		TimeUnit.SECONDS.sleep(2);
+
+		a = true;
 		try {
 			webDriver.findElement(By.xpath("//div[@class='footer_section_wrapper']"));
 		} catch (NoSuchElementException e) {
 			a = false;
-			Assert.fail("Testimonials page - Footer is not present");
+			Assert.fail("About page - Footer is not present");
 		}
 		if (a == true) {
-			test4.pass("Testimonials page - Footer is present");
+			test4.pass("About page - Footer is present");
 		}
 		try {
 			TimeUnit.SECONDS.sleep(3);
@@ -356,120 +258,249 @@ public class TestimonialForumPages extends BrowserSetupClass {
 	}
 
 	@Test(priority = 6)
-	public void b1_section1() throws InterruptedException {
-		ExtentTest test5 = extentreport.createTest("Forum Page", "To check the Prelogin Forum web page");
+	public void b1_partnerPage() throws InterruptedException {
+		ExtentTest test5 = extentreport.createTest("Partner page",
+				"To check the Prelogin Partner web page title,header");
 		extentTest.set(test5);
-		webDriver.get("https://content.mobicip.com/forum");
-		TimeUnit.SECONDS.sleep(4);
+		boolean a = true;
+		JavascriptExecutor j = (JavascriptExecutor) webDriver;
+		j.executeScript("window.scrollBy(0,200)");
+
+		TimeUnit.SECONDS.sleep(3);
+
+		try {
+			webDriver.findElement(By.xpath("/html/body/div[1]/div/footer/div[2]/div/div[1]/div[1]/div[2]/ul/li[3]/a"))
+					.click();
+		} catch (NoSuchElementException e) {
+			a = false;
+			Assert.fail("Pre login - Footer Partner redirect failed");
+		}
+		if (a == true) {
+			test5.pass("Pre login - Footer Partner redirects to Partner page");
+		}
+
+		TimeUnit.SECONDS.sleep(5);
 
 		// page title
 		String tit = webDriver.getTitle();
 		System.out.println(tit);
 		tit = webDriver.getTitle();
-		if (tit.equals("Mobicip | Forums")) {
-			test5.pass("Forum Page title is correct");
+		if (tit.equals("Partner Programs For Affiliates, Resellers or Distributors | Mobicip")) {
+			test5.pass("Partner Page title is correct");
 		} else {
-			Assert.fail("Forum Page title isn't correct");
+			Assert.fail("Partner Page title isn't correct");
 		}
 
 		// Header Elements
-		boolean a = true;
+		a = true;
 		try {
+			webDriver.findElement(By.xpath("//a[@class='company_logo']"));
 			webDriver.findElement(By.xpath("//*[text()='Features']"));
 			webDriver.findElement(By.xpath("//*[text()='Pricing']"));
 			webDriver.findElement(By.xpath("//*[text()='Support']"));
+			webDriver.findElement(By.xpath("//*[text()='Testimonials']"));
+			webDriver.findElement(By.xpath("//*[text()='Login']"));
+			webDriver.findElement(By.xpath("//*[text()='Start Free Trial']"));
 		} catch (NoSuchElementException e) {
 			a = false;
-			Assert.fail("Pre login Forum page - Header is incorrect");
+			Assert.fail("Pre login Partner page - Header is incorrect");
 		}
 		if (a == true) {
-			test5.pass("Pre login Forum page - Header is correct");
+			test5.pass("Pre login Partner page - Header is correct");
 		}
-
 	}
 
 	@Test(priority = 7)
-	public void b2_section2() throws InterruptedException {
-		ExtentTest test6 = extentreport.createTest("section 1", "To check the Prelogin Forum web page section 1");
+	public void b2_section1() throws InterruptedException {
+		ExtentTest test6 = extentreport.createTest("Section 1(Left Part)",
+				"To check the Prelogin Partner web page section 1");
 		extentTest.set(test6);
+		boolean a = true;
+		try {
+			webDriver.findElement(By.xpath("//*[text()='Does Mobicip have a Partner Program?']"));
+		} catch (NoSuchElementException e) {
+			a = false;
+			Assert.fail("Section title is not correct");
+		}
+		if (a == true) {
+			test6.pass("Section title is correct");
+		}
+
+		String p = webDriver.findElement(By.xpath("//div[@class='partner_wrapper']/div[1]/h2")).getText();
+		if (p.equals("Affiliates")) {
+			test6.pass("Subtitle 1 correct");
+		} else {
+			Assert.fail("Subtitle 1 not correct");
+		}
+
+		String p1 = webDriver.findElement(By.xpath("//div[@class='partner_wrapper']/div[1]/p[1]")).getText();
+		if (p1.equals(
+				"Mobicip offers an affiliate program in which bloggers, web publishers, influencers, system administrators, consultants, and resellers are invited to promote Mobicip and earn commissions.")) {
+			test6.pass("Subtitle 1 description correct");
+		} else {
+			Assert.fail("Subtitle 1 description not correct");
+		}
+
 		JavascriptExecutor j = (JavascriptExecutor) webDriver;
-		j.executeScript("window.scrollBy(0,100)");
-		TimeUnit.SECONDS.sleep(3);
+		j.executeScript("window.scrollBy(0,400)");
+
+		TimeUnit.SECONDS.sleep(2);
+
+		String p2 = webDriver.findElement(By.xpath("//div[@class='partner_wrapper']/div[1]/p[2]")).getText();
+		if (p2.equals("This is how it works:")) {
+			test6.pass("Steps title correct");
+		} else {
+			Assert.fail("Steps title not correct");
+		}
+
+		String s1 = webDriver.findElement(By.xpath("//div[@class='partner_list_wrapper']/div[2]/p[2]")).getText();
+		if (s1.equals("Visit the Mobicip Affiliate Program portal to enroll.")) {
+			test6.pass("Step 1 correct");
+		} else {
+			Assert.fail("Steps 1 not correct");
+		}
+
+		String s2 = webDriver.findElement(By.xpath("//div[@class='partner_list_wrapper']/div[3]/p[2]")).getText();
+		if (s2.equals(
+				"Once approved, you will have access to affiliate assets such as your own unique affiliate link and easy-to-embed graphics.")) {
+			test6.pass("Step 2 correct");
+		} else {
+			Assert.fail("Steps 2 not correct");
+		}
+
+		JavascriptExecutor j1 = (JavascriptExecutor) webDriver;
+		j1.executeScript("window.scrollBy(0,100)");
+
+		TimeUnit.SECONDS.sleep(2);
+
+		String s3 = webDriver.findElement(By.xpath("//div[@class='partner_list_wrapper']/div[4]/p[2]")).getText();
+		if (s3.equals(
+				"Inside the reporting features of the affiliate portal, you can track traffic, conversions, and commissions.")) {
+			test6.pass("Step 3 correct");
+		} else {
+			Assert.fail("Steps 3 not correct");
+		}
+
+		String s4 = webDriver.findElement(By.xpath("//div[@class='partner_list_wrapper']/div[5]/p[2]")).getText();
+		if (s4.equals("You earn a 20% commission on every sale you refer!")) {
+			test6.pass("Step 4 correct");
+		} else {
+			Assert.fail("Steps 4 not correct");
+		}
+
+		String p3 = webDriver.findElement(By.xpath("//div[@class='partner_container']/p[3]")).getText();
+		if (p3.equals("Join the Mobicip Affiliate Program today. Its free!")) {
+			test6.pass("Description 1 correct");
+		} else {
+			Assert.fail("Description 1 not correct");
+		}
+
+		String p4 = webDriver.findElement(By.xpath("//div[@class='partner_container']/p[4]")).getText();
+		if (p4.equals("For questions about the affiliate program, please email support@mobicip.com")) {
+			test6.pass("Description 2 correct");
+		} else {
+			Assert.fail("Description 2 not correct");
+		}
+
+		a = true;
+		try {
+			webDriver.findElement(By.xpath("//div[@class='partner_list_wrapper']/div[2]/p[2]/a"));
+			webDriver.findElement(By.xpath("//div[@class='partner_container']/p[3]/a"));
+		} catch (NoSuchElementException e) {
+			a = false;
+			Assert.fail("Mobicip Affiliate Program link not present");
+		}
+		if (a == true) {
+			test6.pass("Mobicip Affiliate Program link present");
+		}
+
+		a = true;
+		try {
+			webDriver.findElement(By.xpath("//div[@class='partner_container']/p[4]/a"));
+		} catch (NoSuchElementException e) {
+			a = false;
+			Assert.fail("support@mobicip.com link not present");
+		}
+		if (a == true) {
+			test6.pass("support@mobicip.com link present");
+		}
+	}
+
+	@Test(priority = 8)
+	public void b3_section2() throws InterruptedException {
+		ExtentTest test7 = extentreport.createTest("Section 1(Right Part)",
+				"To check the Prelogin Partner web page section 1");
+		extentTest.set(test7);
+		JavascriptExecutor j = (JavascriptExecutor) webDriver;
+		j.executeScript("window.scrollBy(0,-500)");
+
+		TimeUnit.SECONDS.sleep(2);
+
+		String p = webDriver.findElement(By.xpath("//div[@class='partner_wrapper']/div[2]/h2")).getText();
+		if (p.equals("Resellers/Distributors")) {
+			test7.pass("Title correct");
+		} else {
+			Assert.fail("Title not correct");
+		}
+
+		String p1 = webDriver.findElement(By.xpath("//div[@class='partner_wrapper']/div[2]/p[1]")).getText();
+		if (p1.equals("Getting on Board:")) {
+			test7.pass("subtitle 1 correct");
+		} else {
+			Assert.fail("subtitle 1 not correct");
+		}
+
+		String p2 = webDriver.findElement(By.xpath("//div[@class='partner_wrapper']/div[2]/p[2]")).getText();
+		if (p2.equals(
+				"Are you interested in selling or distributing Mobicip's products in your region? Contact us today.")) {
+			test7.pass("Description correct");
+		} else {
+			Assert.fail("Description not correct");
+		}
+
+		String p3 = webDriver.findElement(By.xpath("//div[@class='partner_wrapper']/div[2]/p[3]")).getText();
+		if (p3.equals("For Authorised Resellers/Distributors:")) {
+			test7.pass("subtitle 2 correct");
+		} else {
+			Assert.fail("subtitle 2 not correct");
+		}
+
+		String p4 = webDriver.findElement(By.xpath("//div[@class='partner_wrapper']/div[2]/p[4]")).getText();
+		if (p4.equals(
+				"If you are signing up new customers, here's the deal registration form.The customer also needs to sign up here and agree to the \"Terms & Conditions\" before we distribute the licenses.")) {
+			test7.pass("Description correct");
+		} else {
+			Assert.fail("Description not correct");
+		}
 
 		boolean a = true;
 		try {
-			webDriver.findElement(By.xpath("//div[@class='sidebar_content_wrapper']"));
+			webDriver.findElement(By.xpath("//div[@class='partner_wrapper']/div[2]/p[2]/a")).click();
 		} catch (NoSuchElementException e) {
 			a = false;
-			Assert.fail("Section 1 is not present");
+			Assert.fail("Contact us link redirects failed");
 		}
 		if (a == true) {
-			test6.pass("Section 1 is present");
-		}
-
-		a = true;
-		try {
-			webDriver.findElement(By.xpath("//tr[@id='forum-list-5']"));
-		} catch (NoSuchElementException e) {
-			a = false;
-			Assert.fail("1.Technical Support is not present");
-		}
-		if (a == true) {
-			test6.pass("1.Technical Support is present");
-		}
-
-		String p = webDriver.findElement(By.xpath("//tr[@id='forum-list-5']/td/div[2]/a")).getText();
-		if (p.equals("Technical Support")) {
-			test6.pass("Text correct");
-		} else {
-			Assert.fail("Text not correct");
-		}
-
-		a = true;
-		try {
-			webDriver.findElement(By.xpath("//tr[@id='forum-list-5']/td/div[2]/a")).click();
-		} catch (NoSuchElementException e) {
-			a = false;
-			Assert.fail("Link redirects failed");
-		}
-		if (a == true) {
-			test6.pass("Link works fine");
+			test7.pass("Contact us link works fine");
 		}
 		TimeUnit.SECONDS.sleep(2);
 		webDriver.navigate().back();
 		TimeUnit.SECONDS.sleep(2);
 
 		JavascriptExecutor j1 = (JavascriptExecutor) webDriver;
-		j1.executeScript("window.scrollBy(0,100)");
-		TimeUnit.SECONDS.sleep(3);
+		j1.executeScript("window.scrollBy(0,300)");
+
+		TimeUnit.SECONDS.sleep(2);
 
 		a = true;
 		try {
-			webDriver.findElement(By.xpath("//tr[@id='forum-list-2']"));
+			webDriver.findElement(By.xpath("//div[@class='partner_wrapper']/div[2]/p[4]/a[1]")).click();
 		} catch (NoSuchElementException e) {
 			a = false;
-			Assert.fail("2.General Announcements is not present");
+			Assert.fail("Reseller-signup link redirects failed");
 		}
 		if (a == true) {
-			test6.pass("2.General Announcements is present");
-		}
-
-		String p1 = webDriver.findElement(By.xpath("//tr[@id='forum-list-2']/td/div[2]/a")).getText();
-		if (p1.equals("General Announcements")) {
-			test6.pass("Text correct");
-		} else {
-			Assert.fail("Text not correct");
-		}
-
-		a = true;
-		try {
-			webDriver.findElement(By.xpath("//tr[@id='forum-list-2']/td/div[2]/a")).click();
-		} catch (NoSuchElementException e) {
-			a = false;
-			Assert.fail("Link redirects failed");
-		}
-		if (a == true) {
-			test6.pass("Link works fine");
+			test7.pass("Reseller-signup link works fine");
 		}
 		TimeUnit.SECONDS.sleep(2);
 		webDriver.navigate().back();
@@ -477,96 +508,63 @@ public class TestimonialForumPages extends BrowserSetupClass {
 
 		a = true;
 		try {
-			webDriver.findElement(By.xpath("//tr[@id='forum-list-7']"));
+			webDriver.findElement(By.xpath("//div[@class='partner_wrapper']/div[2]/p[4]/a[2]")).click();
 		} catch (NoSuchElementException e) {
 			a = false;
-			Assert.fail("3.Filtering policy is not present");
+			Assert.fail("Signup link redirects failed");
 		}
 		if (a == true) {
-			test6.pass("3.Filtering policy is present");
-		}
-
-		String p2 = webDriver.findElement(By.xpath("//tr[@id='forum-list-7']/td/div[2]/a")).getText();
-		if (p2.equals("Filtering policy")) {
-			test6.pass("Text correct");
-		} else {
-			Assert.fail("Text not correct");
-		}
-
-		a = true;
-		try {
-			webDriver.findElement(By.xpath("//tr[@id='forum-list-7']/td/div[2]/a")).click();
-		} catch (NoSuchElementException e) {
-			a = false;
-			Assert.fail("Link redirects failed");
-		}
-		if (a == true) {
-			test6.pass("Link works fine");
+			test7.pass("Signup link works fine");
 		}
 		TimeUnit.SECONDS.sleep(2);
 		webDriver.navigate().back();
 		TimeUnit.SECONDS.sleep(2);
-
-		a = true;
-		try {
-			webDriver.findElement(By.xpath("//tr[@id='forum-list-6']"));
-		} catch (NoSuchElementException e) {
-			a = false;
-			Assert.fail("4.Internet Safety Resources is not present");
-		}
-		if (a == true) {
-			test6.pass("4.Internet Safety Resources is present");
-		}
-
-		String p3 = webDriver.findElement(By.xpath("//tr[@id='forum-list-6']/td/div[2]/a")).getText();
-		if (p3.equals("Internet Safety Resources")) {
-			test6.pass("Text correct");
-		} else {
-			Assert.fail("Text not correct");
-		}
-
-		a = true;
-		try {
-			webDriver.findElement(By.xpath("//tr[@id='forum-list-6']/td/div[2]/a")).click();
-		} catch (NoSuchElementException e) {
-			a = false;
-			Assert.fail("Link redirects failed");
-		}
-		if (a == true) {
-			test6.pass("Link works fine");
-		}
-		TimeUnit.SECONDS.sleep(2);
-		webDriver.navigate().back();
-		TimeUnit.SECONDS.sleep(2);
-
 	}
 
-	@Test(priority = 8)
-	public void b3_section3() throws InterruptedException {
-		ExtentTest test7 = extentreport.createTest("section 3", "To check the Prelogin Forum web page section 3");
-		extentTest.set(test7);
+	@Test(priority = 9)
+	public void b4_section3() throws InterruptedException {
+		ExtentTest test8 = extentreport.createTest("section 3,4", "To check the Prelogin Partner web page section 3,4");
+		extentTest.set(test8);
 		JavascriptExecutor j = (JavascriptExecutor) webDriver;
-		j.executeScript("window.scrollBy(0,500)");
+		j.executeScript("window.scrollBy(0,400)");
 		TimeUnit.SECONDS.sleep(2);
 
 		boolean a = true;
 		try {
+			webDriver.findElement(By.xpath("//h2[text()='Build Better Digital Habits With Mobicip']"));
+			webDriver.findElement(By.xpath("//ul[@class='footer_feature_ul']"));
+			webDriver.findElement(By.xpath("//a[@class='primary_button sign_up']"));
+		} catch (NoSuchElementException e) {
+			a = false;
+			Assert.fail("Partner page - Build better is not present");
+		}
+		if (a == true) {
+			test8.pass("Partner page - Build better is present");
+		}
+
+		JavascriptExecutor j1 = (JavascriptExecutor) webDriver;
+		j1.executeScript("window.scrollBy(0,500)");
+		TimeUnit.SECONDS.sleep(2);
+
+		a = true;
+		try {
 			webDriver.findElement(By.xpath("//div[@class='footer_section_wrapper']"));
 		} catch (NoSuchElementException e) {
 			a = false;
-			Assert.fail("Forum page - Footer is not present");
+			Assert.fail("Partner page - Footer is not present");
 		}
 		if (a == true) {
-			test7.pass("Forum page - Footer is present");
+			test8.pass("Partner page - Footer is present");
 		}
 		try {
 			TimeUnit.SECONDS.sleep(3);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		webDriver.findElement(By.xpath("//a[@class='header_company_logo']")).click();
-		new WebDriverWait(webDriver, Duration.ofSeconds(20)).until(ExpectedConditions
-				.visibilityOfElementLocated(By.xpath("//div[@class='main_container home_index_component']")));
+
+		webDriver.findElement(By.xpath("//a[@class='company_logo']")).click();
+		new WebDriverWait(webDriver, Duration.ofSeconds(20))
+				.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h1[@class='main_title']")));
 
 	}
 
@@ -579,63 +577,21 @@ public class TestimonialForumPages extends BrowserSetupClass {
 		}
 	}
 
+	/*
+	 * @AfterTest public void teardown() { extentreport.flush();
+	 * 
+	 * try { // Path to your ExtentReports HTML file String htmlFilePath =
+	 * "C:\\Users\\User\\git\\MerlinWeb\\MerlinWeb\\TestReports\\PreLoginTest\\AboutPartnerPagesTest\\AboutPartnerPagesReport.html";
+	 * 
+	 * // Path for the generated PDF file String pdfFilePath =
+	 * "C:\\Users\\User\\git\\MerlinWeb\\MerlinWeb\\TestReports\\PreLoginTest\\AboutPartnerPagesTest\\AboutPartnerPagesReport1.pdf";
+	 * 
+	 * // Convert HTML to PDF HtmlConverter.convertToPdf(new File(htmlFilePath), new
+	 * File(pdfFilePath));
+	 * 
+	 * System.out.println("PDF Report generated successfully!"); } catch (Exception
+	 * e) { e.printStackTrace(); }
+	 * 
+	 * 
+	 */
 }
-
-/*
- * @AfterTest public void afterTest() throws FileNotFoundException {
- * extentreport.flush();
- */
-
-/*
- * // public static void main(String[] args)
- * 
- * { // Set up email properties Properties props = new Properties();
- * props.put("mail.smtp.host", "smtp.gmail.com"); props.put("mail.smtp.port",
- * "587"); props.put("mail.smtp.auth", "true");
- * props.put("mail.smtp.starttls.enable", "true");
- * 
- * // Authenticate the email account Session session =
- * Session.getInstance(props, new javax.mail.Authenticator() { protected
- * PasswordAuthentication getPasswordAuthentication() { return new
- * PasswordAuthentication("hariharanv308@gmail.com", "gfmy vukk vxij lgtm"); //
- * Replace with your email credentials } });
- * 
- * try { // Compose the email Message message = new MimeMessage(session);
- * message.setFrom(new InternetAddress("hariharanv308@gmail.com")); // Sender's
- * email message.setRecipients(Message.RecipientType.TO,
- * InternetAddress.parse("hari@mobicip.com")); // Recipient's email
- * message.setSubject("Automation Test Report with Multiple Attachments");
- * 
- * // Email body text BodyPart messageBodyPart = new MimeBodyPart();
- * messageBodyPart.setText("Hi! Please find the attached test reports.");
- * 
- * Multipart multipart = new MimeMultipart();
- * multipart.addBodyPart(messageBodyPart);
- * 
- * // List of files to attach String[] filenames = {
- * "C:\\Users\\User\\git\\MerlinWeb\\MerlinWeb\\TestReports\\PreLoginTest\\TestimonialsForum\\TestimonialForumPagesReport.html",
- * "C:\\Users\\User\\git\\MerlinWeb\\MerlinWeb\\TestReports\\TestFeatures\\reportFeatures.html"
- * };
- * 
- * for (String filename : filenames) { messageBodyPart = new MimeBodyPart();
- * DataSource source = new FileDataSource(filename);
- * messageBodyPart.setDataHandler(new DataHandler(source));
- * 
- * // Extract the file name for the attachment display String extractedFileName
- * = filename.contains("\\") ? filename.substring(filename.lastIndexOf("\\") +
- * 1) : filename.contains("/") ? filename.substring(filename.lastIndexOf("/") +
- * 1) : filename; // Use full filename if no slashes are present
- * 
- * messageBodyPart.setFileName(extractedFileName);
- * multipart.addBodyPart(messageBodyPart); }
- * 
- * 
- * // Combine all parts message.setContent(multipart);
- * 
- * // Send the email Transport.send(message);
- * 
- * System.out.println("Email sent successfully with multiple attachments.");
- * 
- * } catch (MessagingException e) { e.printStackTrace(); } } } }
- * 
- */
