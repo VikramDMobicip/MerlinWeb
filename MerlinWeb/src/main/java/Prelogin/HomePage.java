@@ -104,9 +104,35 @@ public class HomePage extends BrowserSetupClass {
 			test1.pass("Description is correct");
 		}
 
+		JavascriptExecutor j = (JavascriptExecutor) webDriver;
+		j.executeScript("window.scrollBy(0,200)");
+		TimeUnit.SECONDS.sleep(2);
+
 		a = true;
 		try {
-			webDriver.findElement(By.xpath("//div[@class='banner_content_container']/div[2]/a"));
+			webDriver.findElement(By.xpath("//div[text()='Mobicip is a proud recipient of']"));
+			if (environment == 2) {
+			webDriver.findElement(By.xpath("//img[@src='https://www.mobicip.com/assets/content/shared/awards/family_choice_award-ac412834daa0e18ade33fa97b27293f9f01bf0eb64fa767202b571120bf84b0f.png']"));
+			}
+			webDriver.findElement(By.xpath("//div[text()='Family Choice Award']"));
+			if (environment == 2) {
+			webDriver.findElement(By.xpath("//img[@src='https://www.mobicip.com/assets/content/shared/awards/mom_s_choice_award-3c5590085930b7a7017f4af4fdc9b4c674e9e108a3f058d25e686512b1422e8c.png']"));
+			}
+			webDriver.findElement(By.xpath("//div[text()='Mom’s Choice Award']"));
+			if (environment == 2) {
+			webDriver.findElement(By.xpath("//img[@src='https://www.mobicip.com/assets/content/shared/awards/bbb_award-0c8d85c8633138761dffb0cb00204cb9e05c524a91c260ac8e14cdb95beb0389.png']"));
+			}
+		} catch (NoSuchElementException e) {
+			a = false;
+			test1.fail("Awards section is not correct");
+		}
+		if (a == true) {
+			test1.pass("Awards section is correct");
+		}
+
+		a = true;
+		try {
+			webDriver.findElement(By.xpath("//div[@class='banner_content_container']/div[3]/a"));
 		} catch (NoSuchElementException e) {
 			a = false;
 			test1.fail("Start free trial button not present");
@@ -117,7 +143,7 @@ public class HomePage extends BrowserSetupClass {
 
 		a = true;
 		try {
-			webDriver.findElement(By.xpath("//div[@class='banner_content_container']/div[2]/a")).click();
+			webDriver.findElement(By.xpath("//div[@class='banner_content_container']/div[3]/a")).click();
 		} catch (NoSuchElementException e) {
 			a = false;
 			test1.fail("Start free trial button redirects failed");
@@ -127,10 +153,6 @@ public class HomePage extends BrowserSetupClass {
 		}
 		TimeUnit.SECONDS.sleep(2);
 		webDriver.navigate().back();
-		TimeUnit.SECONDS.sleep(2);
-
-		JavascriptExecutor j = (JavascriptExecutor) webDriver;
-		j.executeScript("window.scrollBy(0,200)");
 		TimeUnit.SECONDS.sleep(2);
 
 		a = true;
