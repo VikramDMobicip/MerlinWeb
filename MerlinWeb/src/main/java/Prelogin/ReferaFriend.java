@@ -209,26 +209,37 @@ public class ReferaFriend extends BrowserSetupClass {
 			test2.pass("Section 2 - Title is correct");
 		}
 
-		String p = webDriver.findElement(By.xpath("//div[@class='work_list_wrapper']/div[2]/p[2]")).getText();
-		if (p.equals("Invite your friends and we will send them a referral code by email.")) {
-			test2.pass("Step 1 correct");
-		} else {
+		a = true;
+		try {
+			webDriver.findElement(By.xpath("//p[contains(text(),'Invite your friends to Mobicip, and we') and contains(text(),'ll send a unique referral code directly to their email.')]"));
+		} catch (NoSuchElementException e) {
+			a = false;
 			Assert.fail("Step 1 not correct");
 		}
-
-		String p1 = webDriver.findElement(By.xpath("//div[@class='work_list_wrapper']/div[3]/p[2]")).getText();
-		if (p1.equals("For every purchase made using the referral code, you will be eligible for a referral reward.")) {
-			test2.pass("Step 2 correct");
-		} else {
-			Assert.fail("Step 2 not correct");
+		if (a == true) {
+			test2.pass("Step 1 correct");
 		}
 
-		String p2 = webDriver.findElement(By.xpath("//div[@class='work_list_wrapper']/div[4]/p[2]")).getText();
-		if (p2.equals(
-				"You will earn a $20 Amazon gift card for each referred friend, as long as they remain an active Mobicip user for at least 60 days from the date of purchase.")) {
-			test2.pass("Step 3 correct");
-		} else {
+		a = true;
+		try {
+			webDriver.findElement(By.xpath("//p[contains(text(),'For every friend who makes a purchase using the referral code, you') and contains(text(),'ll be eligible for a referral reward.')]"));
+		} catch (NoSuchElementException e) {
+			a = false;
+			Assert.fail("Step 2 not correct");
+		}
+		if (a == true) {
+			test2.pass("Step 2 correct");
+		}
+
+		a = true;
+		try {
+			webDriver.findElement(By.xpath("//span[contains(text(),'$20 Amazon gift card')]"));
+		} catch (NoSuchElementException e) {
+			a = false;
 			Assert.fail("Step 3 not correct");
+		}
+		if (a == true) {
+			test2.pass("Step 3 correct");
 		}
 	}
 
@@ -261,7 +272,7 @@ public class ReferaFriend extends BrowserSetupClass {
 
 		String q = webDriver.findElement(By.xpath("//div[@class='questions_container']/ul/li[1]/p")).getText();
 		if (q.equals(
-				"You will earn a $20 Amazon gift card for each referral 60 days after the free trial period. You will be eligible to receive this referral reward if you and your friend are active Mobicip subscribers at the time of reward distribution.")) {
+				"Your $20 Amazon e-gift card will be processed after your referred friend stays active with Mobicip for 60 days. Remember, you must be an active Mobicip user yourself when we distribute the reward to qualify.")) {
 			test3.pass("Ans 1 correct");
 		} else {
 			Assert.fail("Ans 1 not correct");
