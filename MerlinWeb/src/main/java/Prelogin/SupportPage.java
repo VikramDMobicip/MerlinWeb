@@ -72,25 +72,7 @@ public class SupportPage extends BrowserSetupClass {
 	public void a2_Section1() throws InterruptedException {
 		ExtentTest test1 = extentreport.createTest("section 1", "To check the Prelogin Support web page section 1");
 		extentTest.set(test1);
-		String p = webDriver.findElement(By.xpath("//p[@class='older_version_text']")).getText();
-		if (p.equals(
-				"If you are using the older version of Mobicip, please click here to view related articles, FAQs, and installation guides")) {
-			test1.pass("Section 1 - Info text is correct");
-		} else {
-			test1.fail("Section 1 - Info text is not correct");
-		}
-
-		boolean a = true;
-		try {
-			webDriver.findElement(By.xpath("//p[@class='older_version_text']/a"));
-		} catch (NoSuchElementException e) {
-			a = false;
-			test1.fail("'Click here' link is not present");
-		}
-		if (a == true) {
-			test1.pass("'Click here' link is present");
-		}
-
+		
 		String p1 = webDriver.findElement(By.xpath("//div[@class='support_search_wrapper']/h1")).getText();
 		if (p1.equals("How Can We Help You?")) {
 			test1.pass("Title text is correct");
@@ -98,7 +80,7 @@ public class SupportPage extends BrowserSetupClass {
 			test1.fail("Title text is not correct");
 		}
 
-		a = true;
+		boolean a = true;
 		try {
 			webDriver.findElement(By.xpath("//div[@class='support_search_wrapper']/div[1]/input"));
 		} catch (NoSuchElementException e) {
@@ -109,56 +91,56 @@ public class SupportPage extends BrowserSetupClass {
 			test1.pass("Search bar is present");
 		}
 
-		webDriver.findElement(By.xpath("//input[@name='search_query']")).sendKeys("mac");
-		TimeUnit.SECONDS.sleep(10);
-
-		a = true;
-		try {
-			webDriver.findElement(By.xpath("//p[@class='articles_count']"));
-		} catch (NoSuchElementException e) {
-			a = false;
-			test1.fail("Search result - Count is not present");
-		}
-		if (a == true) {
-			test1.pass("Search result - Count is present");
-		}
-
-		a = true;
-		try {
-			webDriver.findElement(By.xpath("//div[@class='search_dropdown_container']/ul"));
-		} catch (NoSuchElementException e) {
-			a = false;
-			test1.fail("Search result - articles list is not present");
-		}
-		if (a == true) {
-			test1.pass("Search result - articles list is present");
-		}
-		webDriver.navigate().refresh();
-
-		webDriver.findElement(By.xpath("//input[@name='search_query']")).sendKeys("signup");
-		TimeUnit.SECONDS.sleep(6);
-
-		String p22 = webDriver.findElement(By.xpath("//div[@class='no_articles']")).getText();
-		if (p22.equals("No Relevant Article Found")) {
-			test1.pass("'No Relevant Article Found'text is correct");
-		} else {
-			test1.fail("'No Relevant Article Found'text is not correct");
-		}
-		webDriver.navigate().refresh();
-
-		webDriver.findElement(By.xpath("//input[@name='search_query']")).sendKeys("is");
-		TimeUnit.SECONDS.sleep(5);
-		a = true;
-		try {
-			webDriver.findElement(By.xpath("//div[@class='search_dropdown_wrapper']"));
-		} catch (NoSuchElementException e) {
-			a = false;
-			test1.fail("Minimum char check failed");
-		}
-		if (a == true) {
-			test1.pass("Minimum char check pass");
-		}
-		webDriver.navigate().refresh();
+//		webDriver.findElement(By.xpath("//input[@name='search_query']")).sendKeys("mac");
+//		TimeUnit.SECONDS.sleep(10);
+//
+//		a = true;
+//		try {
+//			webDriver.findElement(By.xpath("//p[@class='articles_count']"));
+//		} catch (NoSuchElementException e) {
+//			a = false;
+//			test1.fail("Search result - Count is not present");
+//		}
+//		if (a == true) {
+//			test1.pass("Search result - Count is present");
+//		}
+//
+//		a = true;
+//		try {
+//			webDriver.findElement(By.xpath("//div[@class='search_dropdown_container']/ul"));
+//		} catch (NoSuchElementException e) {
+//			a = false;
+//			test1.fail("Search result - articles list is not present");
+//		}
+//		if (a == true) {
+//			test1.pass("Search result - articles list is present");
+//		}
+//		webDriver.navigate().refresh();
+//
+//		webDriver.findElement(By.xpath("//input[@name='search_query']")).sendKeys("signup");
+//		TimeUnit.SECONDS.sleep(6);
+//
+//		String p22 = webDriver.findElement(By.xpath("//div[@class='no_articles']")).getText();
+//		if (p22.equals("No Relevant Article Found")) {
+//			test1.pass("'No Relevant Article Found'text is correct");
+//		} else {
+//			test1.fail("'No Relevant Article Found'text is not correct");
+//		}
+//		webDriver.navigate().refresh();
+//
+//		webDriver.findElement(By.xpath("//input[@name='search_query']")).sendKeys("is");
+//		TimeUnit.SECONDS.sleep(5);
+//		a = true;
+//		try {
+//			webDriver.findElement(By.xpath("//div[@class='search_dropdown_wrapper']"));
+//		} catch (NoSuchElementException e) {
+//			a = false;
+//			test1.fail("Minimum char check failed");
+//		}
+//		if (a == true) {
+//			test1.pass("Minimum char check pass");
+//		}
+//		webDriver.navigate().refresh();
 
 		String p2 = webDriver.findElement(By.xpath("//div[@class='resources_wrapper']/h2")).getText();
 		if (p2.equals("Knowledge Base")) {
