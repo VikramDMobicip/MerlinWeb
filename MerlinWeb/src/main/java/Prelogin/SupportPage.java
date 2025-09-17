@@ -261,10 +261,42 @@ public class SupportPage extends BrowserSetupClass {
 		} else {
 			test1.fail("Title text is not correct");
 		}
-
+		
 		a = true;
 		try {
 			webDriver.findElement(By.xpath("//div[@class='switch_connect_container']/div[1]"));
+		} catch (NoSuchElementException e) {
+			a = false;
+			test1.fail("'Chat with us' is not present");
+		}
+		if (a == true) {
+			test1.pass("'Chat with us' is present");
+		}
+
+		String p44 = webDriver.findElement(By.xpath("//div[@class='switch_connect_container']/div[1]/span")).getText();
+		if (p44.equals("Chat with us")) {
+			test1.pass("Title is correct");
+		} else {
+			test1.fail("Title is not correct");
+		}
+		
+		a = true;
+		try {
+			webDriver.findElement(By.xpath("//p[contains(text(),'We look forward to providing you with fast, personalized support and helping you make the most of Mobicip for your family.')]"));
+			webDriver.findElement(By.xpath("//li[contains(text(),'07:00 PM – 11:00 PM')]"));
+			webDriver.findElement(By.xpath("//p[contains(text(),'Live Chat Hours (EST):')]"));
+			webDriver.findElement(By.xpath("//div[@class='backend_message']//a[contains(text(),'Login')]"));
+			} catch (NoSuchElementException e) {
+			a = false;
+			test1.fail("Description is not correct");
+		}
+		if (a == true) {
+			test1.pass("Description is correct");
+		}
+		
+		a = true;
+		try {
+			webDriver.findElement(By.xpath("//div[@class='switch_connect_container']/div[2]"));
 		} catch (NoSuchElementException e) {
 			a = false;
 			test1.fail("'Drop us a line' is not present");
@@ -273,7 +305,7 @@ public class SupportPage extends BrowserSetupClass {
 			test1.pass("'Drop us a line' is present");
 		}
 
-		String p4 = webDriver.findElement(By.xpath("//div[@class='switch_connect_container']/div[1]/span")).getText();
+		String p4 = webDriver.findElement(By.xpath("//div[@class='switch_connect_container']/div[2]/span")).getText();
 		if (p4.equals("Drop us a line")) {
 			test1.pass("Title is correct");
 		} else {
@@ -282,7 +314,7 @@ public class SupportPage extends BrowserSetupClass {
 
 		a = true;
 		try {
-			webDriver.findElement(By.xpath("//div[@class='switch_connect_container']/div[2]"));
+			webDriver.findElement(By.xpath("//div[@class='switch_connect_container']/div[3]"));
 		} catch (NoSuchElementException e) {
 			a = false;
 			test1.fail("'Let's talk' is not present");
@@ -291,7 +323,7 @@ public class SupportPage extends BrowserSetupClass {
 			test1.pass("'Let's talk' is present");
 		}
 
-		String p5 = webDriver.findElement(By.xpath("//div[@class='switch_connect_container']/div[2]/span")).getText();
+		String p5 = webDriver.findElement(By.xpath("//div[@class='switch_connect_container']/div[3]/span")).getText();
 		if (p5.equals("Let's talk")) {
 			test1.pass("Title is correct");
 		} else {
@@ -530,13 +562,21 @@ public class SupportPage extends BrowserSetupClass {
 			test3.fail("Section 3 - Title is not correct");
 		}
 
-		String p1 = webDriver.findElement(By.xpath("//ul[@class='announcement_container swiper_wrapper']//li[1]//p[1]"))
-				.getText();
-		if (p1.equals(
-				"We are thrilled to share that we have enhanced Mobicip app experience with brand new features and options specially crafted for our users in a basic plan. Basic users will be able to use certain enhanced functionalities without any associated cost. We invite our existing and new users to dive into these new capabilities and explore the exciting additions that make Mobicip app even more powerful and user-friendly. We are committed to continually improving and providing our users with the best tools possible. ")) {
-			test3.pass("Description is correct");
-		} else {
+		boolean a = true;
+		try {
+			webDriver.findElement(By.xpath("//b[contains(text(),'We’re excited to introduce live chat support!')]"));
+			webDriver.findElement(By.xpath("//p[contains(text(),'Our friendly support team is here to assist you in real time. Whether you need help setting up Mobicip or have questions about a feature, we')]"));
+			webDriver.findElement(By.xpath("//strong[contains(text(),'Live Chat Hours:')]"));
+			webDriver.findElement(By.xpath("//p[contains(text(),' Sunday – Thursday, 7:00 PM – 11:00 PM (EST)')]"));
+			webDriver.findElement(By.xpath("//b[contains(text(),'Chat icon')]"));
+			webDriver.findElement(By.xpath("//p[contains(text(),'re committed to providing fast, personalized support to ensure you can confidently use Mobicip to protect your family')]"));
+			webDriver.findElement(By.xpath("//p[contains(text(),'Simply click the')]"));
+		} catch (NoSuchElementException e) {
+			a = false;
 			test3.fail("Description is not correct");
+		}
+		if (a == true) {
+			test3.pass("Description is correct");
 		}
 
 		JavascriptExecutor j1 = (JavascriptExecutor) webDriver;
