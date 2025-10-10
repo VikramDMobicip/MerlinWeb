@@ -768,7 +768,7 @@ public class Features extends BrowserSetupClass {
 			webDriver.findElement(By.xpath("//span[contains(text(),'iPhones & iPads')]"));
 			webDriver.findElement(By.xpath("//span[contains(text(),'Android Phones & Tablets')]"));
 			webDriver.findElement(By.xpath("//span[contains(text(),'Kindle Fire')]"));
-			
+
 		} catch (NoSuchElementException e) {
 			a = false;
 			test.fail("Available Across All Platforms section is not present");
@@ -1157,7 +1157,7 @@ public class Features extends BrowserSetupClass {
 	}
 
 	@Test(priority = 7)
-	public void a8_WebsiteBlocker() {
+	public void a8_WebsiteBlocker() throws InterruptedException {
 		ExtentTest test = extentreport.createTest("Website Blocker",
 				"Checking the elements in Website Blocker time page");
 		extentTest.set(test);
@@ -1199,167 +1199,397 @@ public class Features extends BrowserSetupClass {
 		if (a == true) {
 			test.pass("Website Blocker page Header is correct");
 		}
-		// List of features
+		// section 1 - Trusted by 2M+ families worldwide
 		a = true;
 		try {
-			webDriver.findElement(By.xpath("//ul[@class='feature_ul']"));
-		} catch (NoSuchElementException e) {
-			a = false;
-			test.fail("Website Blocker page List of features is present");
-		}
-		if (a == true) {
-			test.pass("Website Blocker page List of features is present");
-		}
-		// Defination
-		a = true;
-		try {
-			webDriver.findElement(By.xpath("//h1[text()='WEBSITE BLOCKER']"));
+			TimeUnit.SECONDS.sleep(2);
+			webDriver.findElement(By.xpath("//h1[text()='Trusted by 2M+ families worldwide']"));
+			webDriver.findElement(By.xpath("//span[contains(text(),'Parental Control')]"));
+			webDriver.findElement(By.xpath(
+					"//p[contains(text(),'Protect your child online with real-time, AI-powered content filtering.')]"));
+			webDriver.findElement(By.xpath(
+					"//p[contains(text(),'Block inappropriate websites and customize their internet experience across all')]"));
+			webDriver.findElement(By.xpath("//div[@class='action_container']//a[contains(text(),'Start Free Trial')]"));
+			webDriver.findElement(By.xpath(
+					"//div[@class='action_container']//img[@src='https://www.mobicip.com/assets/content/download_icons/icn_appstore-694b52ca57dfa425e4abdbfc2b9013cb6a7572469c321928916a12b98d18ef6b.webp']"));
+			webDriver.findElement(By.xpath(
+					"//div[@class='action_container']//img[@src='https://www.mobicip.com/assets/content/download_icons/icn_playstore-d6a72c48e335162091be78831869bd011081b06ee0dcf5746df3d05126a60596.png']"));
+			webDriver.findElement(By.xpath("//div[@class='product_icons_container']"));
+			webDriver.findElement(By.xpath("//p[text()='Protects iOS, Android, macOS, Windows, Chromebook & Kindle']"));
+			TimeUnit.SECONDS.sleep(2);
+			webDriver.findElement(By.xpath("//h3[text()='Protection Dashboard']"));
+			webDriver.findElement(By.xpath("//p[text()='Real-time filtering active']"));
+			webDriver.findElement(By.xpath("//span[contains(text(),'Adult and Mature Content')]"));
 			webDriver.findElement(
-					By.xpath("//span[text()='Website Blocker & Internet Filter: Protect Your Kids Online']"));
+					By.xpath("//li[@class='dashboard_item filtered']//span[contains(text(),'Social Media')]"));
+			webDriver.findElement(
+					By.xpath("//li[@class='dashboard_item allowed']//span[contains(text(),'Educational Sites')]"));
+			webDriver.findElement(By.xpath("//li[@class='dashboard_item blocked']//span[contains(text(),'BLOCKED')]"));
+			webDriver
+					.findElement(By.xpath("//li[@class='dashboard_item filtered']//span[contains(text(),'FILTERED')]"));
+			webDriver.findElement(By.xpath("//li[@class='dashboard_item allowed']//span[contains(text(),'ALLOWED')]"));
+			webDriver.findElement(By.xpath("//span[text()='AI-powered filtering active']"));
+			webDriver.findElement(By.xpath("//span[text()='Protecting across all devices']"));
 			webDriver.findElement(By.xpath(
-					"//p[contains(text(),'Block websites and filter inappropriate content across any browser, YouTube, or other social media.')]"));
+					"//div[@class='dashboard_header']//img[@src='https://www.mobicip.com/assets/content/placeholder-ee5dedd013f959cbe872fc6f41cde9de613e651167aa7ed2ae14cb93eb8641c6.svg']"));
+			webDriver.findElement(By.xpath(
+					"//div[@class='dashboard_header']//img[@src='https://www.mobicip.com/assets/content/placeholder-ee5dedd013f959cbe872fc6f41cde9de613e651167aa7ed2ae14cb93eb8641c6.svg']"));
+
 		} catch (NoSuchElementException e) {
 			a = false;
-			test.fail("Website Blocker page Definition is incorrect");
+			test.fail("Website Blocker page section 1 is incorrect");
 		}
 		if (a == true) {
-			test.pass("Website Blocker page Definition is correct");
+			test.pass("Website Blocker page section 1 is correct");
 		}
-		// start free trail
-		a = true;
-		try {
-			webDriver.findElement(By.xpath(
-					"//div[@class='action_container']//a[@class='primary_button' and text()='Start Free Trial']"));
-		} catch (NoSuchElementException e) {
-			a = false;
-			test.fail("Website Blocker page Start Free Trial button is not present");
-		}
-		if (a == true) {
-			test.pass("Website Blocker page Start Free Trial button is present");
-		}
-		// Features
+
 		JavascriptExecutor j = (JavascriptExecutor) webDriver;
-		j.executeScript("window.scrollBy(0,568)");
-		try {
-			TimeUnit.SECONDS.sleep(3);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+		j.executeScript("window.scrollBy(0,500)");
+		TimeUnit.SECONDS.sleep(1);
+
+		// Section 2 - Works Across All Ages
 		a = true;
 		try {
-			webDriver.findElement(By.xpath("//h2[text()='Features of Mobicip Website Blocker']"));
-			webDriver.findElement(By.xpath("//h3[text()='Website Filter']"));
+			webDriver.findElement(By.xpath("//span[text()='Works Across All Ages']"));
+			webDriver.findElement(By.xpath("//span[text()='Every Stage']"));
+			webDriver.findElement(By.xpath("//span[text()='curious toddlers']"));
+			webDriver.findElement(By.xpath("//span[text()='teenagers']"));
+
+			webDriver.findElement(By.xpath(
+					"//div[@class='age_card'][1]//img[@src='https://www.mobicip.com/assets/content/placeholder-ee5dedd013f959cbe872fc6f41cde9de613e651167aa7ed2ae14cb93eb8641c6.svg']"));
+			webDriver.findElement(By.xpath("//h3[text()='Concerned Parents']"));
+			webDriver.findElement(By.xpath(
+					"//p[contains(text(),'Block inappropriate content like pornography, violence, cyberbullying, and harmful websites to keep your children safe online.')]"));
+			webDriver.findElement(By.xpath("//span[contains(text(),'Family Protection')]"));
+			webDriver.findElement(By.xpath("//span[contains(text(),'Safe Browsing')]"));
+			webDriver.findElement(By.xpath("//span[contains(text(),'Content Filtering')]"));
+
+			webDriver.findElement(By.xpath(
+					"//div[@class='age_card'][2]//img[@src='https://www.mobicip.com/assets/content/placeholder-ee5dedd013f959cbe872fc6f41cde9de613e651167aa7ed2ae14cb93eb8641c6.svg']"));
+			webDriver.findElement(By.xpath("//h3[text()='Young Children (5-12)']"));
+			webDriver.findElement(By.xpath(
+					"//p[contains(text(),'Create a completely safe digital environment with whitelist-only browsing and educational content focus.')]"));
+			webDriver.findElement(By.xpath("//span[contains(text(),'Educational Sites Only')]"));
+			webDriver.findElement(By.xpath("//span[contains(text(),'No Social Media')]"));
+			webDriver.findElement(By.xpath("//span[contains(text(),'Supervised Browsing')]"));
+
+			webDriver.findElement(By.xpath(
+					"//source[@srcset='https://www.mobicip.com/assets/content/features/website_blocker/teenagers-07705b15f13d3b77e070f6bbeaf34460033071a473770b48f8d61f038edf9898.svg']"));
+			webDriver.findElement(By.xpath("//h3[text()='Teenagers (13-18)']"));
+			webDriver.findElement(By.xpath(
+					"//p[contains(text(),'Balance freedom with safety - block harmful content while allowing age-appropriate social interaction and learning.')]"));
+			webDriver.findElement(By.xpath("//span[contains(text(),'Smart Filtering')]"));
+			webDriver.findElement(By.xpath("//span[contains(text(),'Privacy Protection')]"));
+		} catch (NoSuchElementException e) {
+			a = false;
+			test.fail("Website Blocker page Section 2 is incorrect");
+		}
+		if (a == true) {
+			test.pass("Website Blocker page Section 2 is correct");
+		}
+
+		JavascriptExecutor j2 = (JavascriptExecutor) webDriver;
+		j2.executeScript("window.scrollBy(0,500)");
+		TimeUnit.SECONDS.sleep(1);
+
+		// Section 3 - Trusted by families worldwide for digital safety
+		a = true;
+		try {
+			webDriver
+					.findElement(By.xpath("//h2[contains(text(),'Trusted by families worldwide for digital safety')]"));
+
 			webDriver.findElement(
-					By.xpath("//p[contains(text(),'Block age-inappropriate websites and 20 web categories.')]"));
-			webDriver.findElement(By.xpath("//h3[text()='Porn Blocker']"));
+					By.xpath("//div[@class='feature_item protection_item']//h3[contains(text(),'24/7 Protection')]"));
+			webDriver.findElement(By.xpath("//div[@class='feature_item platforms_item']//h3"));
+			webDriver.findElement(
+					By.xpath("//div[@class='feature_item family_item']//h3[contains(text(),'Whole Family')]"));
+		} catch (NoSuchElementException e) {
+			a = false;
+			test.fail("Website Blocker page Section 3 is incorrect");
+		}
+		if (a == true) {
+			test.pass("Website Blocker page Section 3 is correct");
+		}
+
+		JavascriptExecutor j3 = (JavascriptExecutor) webDriver;
+		j3.executeScript("window.scrollBy(0,500)");
+		TimeUnit.SECONDS.sleep(1);
+
+		// Section 4 - Powerful Features
+		a = true;
+		try {
+			webDriver.findElement(By.xpath("//span[contains(text(),'Powerful Features')]"));
+			webDriver.findElement(By.xpath("//span[contains(text(),'Mobicip Website Blocker')]"));
 			webDriver.findElement(By.xpath(
-					"//p[contains(text(),'Nearly 70% of kids inadvertently stumble upon websites displaying porn & violence while searching for something completely innocent online.')]"));
-			j.executeScript("window.scrollBy(0,380)");
-			try {
-				TimeUnit.SECONDS.sleep(3);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			webDriver.findElement(By.xpath("//h3[text()='Youtube Filter']"));
+					"//p[contains(text(),'Everything you need to filter the internet smartly, safely, and efficiently. Advanced')]"));
+
+			webDriver.findElement(By.xpath("//span[text()='All']"));
+			webDriver.findElement(By.xpath("//span[text()='Filtering']"));
+			webDriver.findElement(By.xpath("//span[text()='Control']"));
+			webDriver.findElement(By.xpath("//span[text()='Management']"));
+
+			webDriver.findElement(By.xpath("//h3[text()='Real-Time Website Filtering']"));
 			webDriver.findElement(By.xpath(
-					"//p[contains(text(),'Are your kids spending too much time on YouTube? With Mobicip, you can')]"));
+					"//p[contains(text(),'Block over 20 harmful categories like pornography, gambling, and hate speech with AI-powered precision')]"));
+
+			webDriver.findElement(By.xpath("//h3[text()='Distraction-Free Mode for Work or Study']"));
+			webDriver.findElement(By.xpath(
+					"//p[contains(text(),'Block platforms like YouTube, Facebook, Reddit, or TikTok during set hours.')]"));
+
+			webDriver.findElement(By.xpath("//h3[text()='YouTube Video-by-Video Filtering']"));
+			webDriver.findElement(By.xpath(
+					"//p[contains(text(),'Unique to Mobicip, apply filtering on a per-video basis on Android and iOS devices.')]"));
+
 			webDriver.findElement(By.xpath("//h3[text()='Whitelist-Only Mode']"));
 			webDriver.findElement(By.xpath(
-					"//p[contains(text(),'Only allow websites that you want your kids to access. Everything else online will be blocked.')]"));
+					"//p[contains(text(),'Only allow pre-approved sites. Ideal for young users or school settings.')]"));
+
+			webDriver.findElement(By.xpath("//h3[text()='Keyword-Based Blocking']"));
+			webDriver.findElement(By.xpath(
+					"//p[contains(text(),'Block content groups by keywords (e.g., \"self-harm\" , \"violence\" , \"scam\").')]"));
+
+			webDriver.findElement(By.xpath("//h3[text()='Custom Schedule Blocking']"));
+			webDriver.findElement(By.xpath(
+					"//p[contains(text(),'Set time-based filters for school hours, bedtime, or deep work sessions')]"));
+
+			webDriver.findElement(By.xpath("//h3[text()='Cross-Platform Sync']"));
+			webDriver.findElement(By.xpath(
+					"//p[contains(text(),'Manage all family or team devices—Windows, macOS, Android, iOS, Chromebook—from one dashboard')]"));
+
+			webDriver.findElement(By.xpath("//h3[text()='Password Lock & Uninstall Prevention']"));
+			webDriver.findElement(By.xpath("//p[contains(text(),'Ensure filter settings can')]"));
+
+			webDriver.findElement(By.xpath("//span[text()='Try Mobicip for free']"));
+
 		} catch (NoSuchElementException e) {
 			a = false;
-			test.fail("Website Blocker page Features is not present");
+			test.fail("Website Blocker page Section 4 is incorrect");
 		}
 		if (a == true) {
-			test.pass("Website Blocker page Features is present");
+			test.pass("Website Blocker page Section 4 is correct");
 		}
-		// Importance
-		j.executeScript("window.scrollBy(0,320)");
-		try {
-			TimeUnit.SECONDS.sleep(3);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+
+		JavascriptExecutor j4 = (JavascriptExecutor) webDriver;
+		j4.executeScript("window.scrollBy(0,700)");
+		TimeUnit.SECONDS.sleep(1);
+
+		// Section 5 - AI-Powered Technology
 		a = true;
 		try {
-			webDriver.findElement(By.xpath("//h2[text()='Why Block Websites or Filter the Internet?']"));
+			webDriver.findElement(By.xpath("//span[text()='AI-Powered Technology']"));
+			webDriver.findElement(By.xpath("//span[text()='Smarter Than']"));
 			webDriver.findElement(By.xpath(
-					"//p[@class='paragraph_content' and  contains(text(),'The internet has greatly facilitated a free exchange')]"));
+					"//p[contains(text(),'Most website blockers rely on static blacklists or browser extensions.')]"));
+			webDriver.findElement(By.xpath("//strong[contains(text(),'Artificial Intelligence and Machine')]"));
+
+			webDriver.findElement(By.xpath("//h3[contains(text(),'Real-time Content Analysis')]"));
+			webDriver.findElement(By.xpath("//p[contains(text(),'Processing millions of data points per second')]"));
+
+			webDriver.findElement(By.xpath("//h4[contains(text(),'AI Analysis')]"));
+			webDriver.findElement(By.xpath("//p[contains(text(),'Deep learning algorithms analyze')]"));
+
+			webDriver.findElement(By.xpath("//h4[contains(text(),'Real-time')]"));
+			webDriver.findElement(By.xpath("//p[contains(text(),'Instant decisions on content')]"));
+
+			webDriver.findElement(By.xpath("//h4[contains(text(),'Deep Scan')]"));
+			webDriver.findElement(By.xpath("//p[contains(text(),'Examines text, images, videos,')]"));
+
+			webDriver.findElement(By.xpath("//h4[contains(text(),'Adaptive')]"));
+			webDriver.findElement(By.xpath("//p[contains(text(),'Learns and improves')]"));
+
+			webDriver.findElement(By.xpath("//p[contains(text(),'AI Processing Active')]"));
+			webDriver.findElement(By.xpath("//p[contains(text(),'Analyzing content across all connected devices')]"));
+
 		} catch (NoSuchElementException e) {
 			a = false;
-			test.fail("Website Blocker page Importance is not present");
+			test.fail("Website Blocker page Section 5 is incorrect");
 		}
 		if (a == true) {
-			test.pass("Website Blocker page Importance is present");
+			test.pass("Website Blocker page Section 5 is correct");
 		}
-		j.executeScript("window.scrollBy(0,500)");
+
+		JavascriptExecutor j5 = (JavascriptExecutor) webDriver;
+		j5.executeScript("window.scrollBy(0,500)");
+		TimeUnit.SECONDS.sleep(1);
+
+		// Section 6 - Tailored to Every Family
+		a = true;
 		try {
-			TimeUnit.SECONDS.sleep(3);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		// Why Mobicip?
-		try {
-			webDriver.findElement(By.xpath("//h2[contains(text(),'Why Choose Mobicip')]"));
+			webDriver.findElement(By.xpath("//span[contains(text(),'Tailored to Every Family')]"));
+			webDriver.findElement(By.xpath("//h2[contains(text(),'Use Mobicip Website Blocker')]"));
+			webDriver.findElement(By.xpath("//span[contains(text(),'If You Want To:')]"));
+			webDriver.findElement(By.xpath("//p[contains(text(),'Discover how Mobicip adapts to your family')]"));
+
+			webDriver.findElement(
+					By.xpath("//div[contains(text(),'Keep kids safe from accidental exposure to mature content')]"));
+			webDriver.findElement(
+					By.xpath("//div[contains(text(),'Help young children use mobile devices safely from day one')]"));
+
+			webDriver.findElement(By.xpath("//div[contains(text(),'Customize each child')]"));
+			webDriver.findElement(
+					By.xpath("//div[contains(text(),'Block dangerous social media sites for teenagers')]"));
+
+			webDriver.findElement(
+					By.xpath("//div[contains(text(),'Balance screen time and safe browsing across all devices')]"));
 			webDriver.findElement(By.xpath(
-					"//strong[contains(text(),'internet filtering software')]/parent::p[@class='paragraph_content']"));
+					"//div[contains(text(),'Equip your teen to navigate social media with confidence and safety')]"));
+
+			webDriver.findElement(By.xpath(
+					"//div[@class='trusted_by_container']/preceding::h2[contains(text(),'Ready to Protect Your Family?')]"));
+			webDriver.findElement(By.xpath(
+					"//div[@class='trusted_by_container']/preceding::a[contains(text(),'Start Free Trial')][1]"));
+			webDriver.findElement(By.xpath(
+					"//div[@class='trusted_by_container']/preceding::p[contains(text(),'Start Now, Stay Protected — Available on All Devices')]"));
+			webDriver.findElement(By.xpath(
+					"//div[@class='trusted_by_container']/preceding::img[@src='https://www.mobicip.com/assets/content/download_icons/icn_appstore-694b52ca57dfa425e4abdbfc2b9013cb6a7572469c321928916a12b98d18ef6b.webp'][1]"));
+			webDriver.findElement(By.xpath(
+					"//div[@class='trusted_by_container']/preceding::img[@src='https://www.mobicip.com/assets/content/download_icons/icn_playstore-d6a72c48e335162091be78831869bd011081b06ee0dcf5746df3d05126a60596.png'][1]"));
+
+			webDriver.findElement(By.xpath("//h3[text()='Instant Setup']"));
+			webDriver.findElement(By.xpath("//h3[text()='2M+ Families']"));
+			webDriver.findElement(
+					By.xpath("//div[@class='tablet_text_break']/preceding::h3[text()='24/7 Protection'][1]"));
+
 		} catch (NoSuchElementException e) {
 			a = false;
-			test.fail("Website Blocker page - Why Mobicip ? is not present");
+			test.fail("Website Blocker page Section 6 is incorrect");
 		}
 		if (a == true) {
-			test.pass("Website Blocker page - Why Mobicip ? is present");
+			test.pass("Website Blocker page Section 6 is correct");
 		}
-		j.executeScript("window.scrollBy(0,500)");
+
+		JavascriptExecutor j6 = (JavascriptExecutor) webDriver;
+		j6.executeScript("window.scrollBy(0,800)");
+		TimeUnit.SECONDS.sleep(1);
+
+		// Section 7 - Why Parents Choose Mobicip Website Blocker
+		a = true;
 		try {
-			TimeUnit.SECONDS.sleep(3);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		// Customer review
-		try {
-			webDriver.findElement(By.xpath("//p[@class='review_msg']"));
-			webDriver.findElement(By.xpath("//span[@class='reviewer_name']"));
+			webDriver.findElement(By.xpath("//h2[contains(text(),'Why Parents Choose')]"));
+
+			webDriver.findElement(By.xpath("//span[contains(text(),'Bruce W')]"));
+			webDriver.findElement(By.xpath("//span[contains(text(),', San Diego')]"));
+			webDriver.findElement(By.xpath("//span[contains(text(),'App Store')]"));
+			webDriver.findElement(By.xpath("//span[text()='App Store']/following::div[@class='star_wrapper'][1]"));
+			webDriver.findElement(By.xpath(
+					"//img[@src='https://www.mobicip.com/assets/content/features/website_blocker/review_bruce-575bd42d9b666af91e81a483c96ab223d7aee54379139598a73c50aabcd93f42.svg']"));
+			webDriver.findElement(By.xpath(
+					"//p[contains(text(),'Mobicip is the most user friendly parental app I have found with excellent features. Great annual fee for what you get.')]"));
+
+			webDriver.findElement(By.xpath("//span[contains(text(),'Maria C')]"));
+			webDriver.findElement(By.xpath("//span[contains(text(),', Sweden')]"));
+			webDriver.findElement(By.xpath("//span[contains(text(),'Google Play')]"));
+			webDriver.findElement(By.xpath("//span[text()='App Store']/following::div[@class='star_wrapper'][2]"));
+			webDriver.findElement(By.xpath(
+					"//img[@src='https://www.mobicip.com/assets/content/features/website_blocker/review_maria-9a26b4b003776e97fd69d9cc53957c02682939bd6191ada80170439bc063f820.svg']"));
+			webDriver.findElement(By.xpath(
+					"//p[contains(text(),'Worked great to introduce our child to her first phone. Being a parent is hard enough and Mobicip makes one area of life safer and easier to manage.')]"));
 		} catch (NoSuchElementException e) {
 			a = false;
-			test.fail("Website Blocker page - Customer review is not present");
+			test.fail("Website Blocker page Section 7 is incorrect");
 		}
 		if (a == true) {
-			test.pass("Website Blocker page - Customer review is present");
+			test.pass("Website Blocker page Section 7 is correct");
 		}
-		j.executeScript("window.scrollBy(0,300)");
+
+		JavascriptExecutor j7 = (JavascriptExecutor) webDriver;
+		j7.executeScript("window.scrollBy(0,500)");
+		TimeUnit.SECONDS.sleep(1);
+
+		// Section 8 - Why You Need to Act Now
+		a = true;
 		try {
-			TimeUnit.SECONDS.sleep(3);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
+			webDriver.findElement(By.xpath("//h2[text()='Why You Need to Act Now']"));
+			webDriver.findElement(By.xpath("//p[contains(text(),'The digital landscape is evolving rapidly. Here')]"));
+
+			webDriver.findElement(By.xpath("//div[contains(text(),'95%')]"));
+			webDriver
+					.findElement(By.xpath("//div[contains(text(),'of children aged 8–11 access the Internet daily')]"));
+
+			webDriver.findElement(By.xpath("//div[contains(text(),'70%')]"));
+			webDriver
+					.findElement(By.xpath("//div[contains(text(),'of kids discover mature content unintentionally')]"));
+
+			webDriver.findElement(By.xpath("//div[contains(text(),'45%')]"));
+			webDriver.findElement(By.xpath("//div[contains(text(),'of children aged 8–11 are on social media')]"));
+
+			webDriver.findElement(By.xpath("//div[contains(text(),'3 hours')]"));
+			webDriver.findElement(By.xpath("//div[contains(text(),'lost per day due to digital distractions')]"));
+			webDriver.findElement(By.xpath(
+					"//div[@class='trusted_by_container']/following::h2[contains(text(),'Ready to Protect Your Family?')]"));
+			webDriver.findElement(By.xpath(
+					"//div[@class='trusted_by_container']/following::a[contains(text(),'Start Free Trial')][1]"));
+			webDriver.findElement(By.xpath(
+					"//div[@class='trusted_by_container']/following::p[contains(text(),'Start Now, Stay Protected — Available on All Devices')]"));
+			webDriver.findElement(By.xpath(
+					"//div[@class='trusted_by_container']/following::img[@src='https://www.mobicip.com/assets/content/download_icons/icn_appstore-694b52ca57dfa425e4abdbfc2b9013cb6a7572469c321928916a12b98d18ef6b.webp'][1]"));
+			webDriver.findElement(By.xpath(
+					"//div[@class='trusted_by_container']/following::img[@src='https://www.mobicip.com/assets/content/download_icons/icn_playstore-d6a72c48e335162091be78831869bd011081b06ee0dcf5746df3d05126a60596.png'][1]"));
+
+		} catch (NoSuchElementException e) {
+			a = false;
+			test.fail("Website Blocker page Section 8 is incorrect");
 		}
-		// Build better
+		if (a == true) {
+			test.pass("Website Blocker page Section 8 is correct");
+		}
+
+		JavascriptExecutor j8 = (JavascriptExecutor) webDriver;
+		j8.executeScript("window.scrollBy(0,500)");
+		TimeUnit.SECONDS.sleep(1);
+
+		// Section 9 - FAQ
+		a = true;
+		try {
+			webDriver.findElement(By.xpath("//h2[text()='Frequently Asked Questions']"));
+
+			webDriver.findElement(By.xpath("//span[contains(text(),'How does Mobicip')]"));
+			webDriver.findElement(By.xpath(
+					"//p[contains(text(),'Mobicip uses real-time AI and machine learning to scan websites and block inappropriate content ensuring safe, clean browsing for kids.')]"));
+
+			webDriver.findElement(By.xpath("//span[contains(text(),'Can I block specific websites with Mobicip?')]"));
+			webDriver.findElement(By.xpath(
+					"//p[contains(text(),'Absolutely. You can block individual websites, categories, or even specific keywords giving you full control.')]"));
+
+			webDriver.findElement(By.xpath("//span[contains(text(),'Does Mobicip filter YouTube videos?')]"));
+			webDriver.findElement(By.xpath(
+					"//p[contains(text(),'Yes. Mobicip filters YouTube.com videos in Android and also offers robust parental controls.')]"));
+
+		} catch (NoSuchElementException e) {
+			a = false;
+			test.fail("Website Blocker page Section 9 is incorrect");
+		}
+		if (a == true) {
+			test.pass("Website Blocker page Section 9 is correct");
+		}
+		// Build Better Digital Habits With Mobicip
 		try {
 			webDriver.findElement(By.xpath("//h2[text()='Build Better Digital Habits With Mobicip']"));
 			webDriver.findElement(By.xpath("//ul[@class='footer_feature_ul']"));
 			webDriver.findElement(By.xpath("//a[@class='primary_button sign_up']"));
 		} catch (NoSuchElementException e) {
 			a = false;
-			test.fail("Website Blocker page - Build better is not present");
+			test.fail("Build Better Digital Habits With Mobicip section is not present");
 		}
 		if (a == true) {
-			test.pass("Website Blocker page - Build better is present");
+			test.pass("Build Better Digital Habits With Mobicip section is present");
 		}
-		j.executeScript("window.scrollBy(0,750)");
+		j.executeScript("window.scrollBy(0,550)");
 		try {
 			TimeUnit.SECONDS.sleep(3);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+
 		// Footer
 		try {
 			webDriver.findElement(By.xpath("//div[@class='footer_section_wrapper']"));
 		} catch (NoSuchElementException e) {
 			a = false;
-			test.fail("Website Blocker page - Footer is not present");
+			test.fail("Footer section is not present");
 		}
 		if (a == true) {
-			test.pass("Website Blocker page - Footer is present");
+			test.pass("Footer section is present");
 		}
 		try {
 			TimeUnit.SECONDS.sleep(3);
@@ -1369,7 +1599,7 @@ public class Features extends BrowserSetupClass {
 	}
 
 	@Test(priority = 8)
-	public void a9_Familylocator() {
+	public void a9_Familylocator() throws InterruptedException {
 		ExtentTest test = extentreport.createTest("Family locator",
 				"Checking the elements in Family locator time page");
 		extentTest.set(test);
@@ -1388,8 +1618,10 @@ public class Features extends BrowserSetupClass {
 			e.printStackTrace();
 		}
 
-		webDriver.findElement(By.xpath("//a[@class='feature_anchor family_locator ']//span[text()='Family Locator']"))
-				.click();
+		webDriver.findElement(By.xpath("//span[text()='Features']")).click();
+		TimeUnit.SECONDS.sleep(2);
+		webDriver.findElement(By.xpath("//span[text()='Family Locator']")).click();
+		TimeUnit.SECONDS.sleep(1);
 		try {
 			TimeUnit.SECONDS.sleep(2);
 		} catch (InterruptedException e) {
